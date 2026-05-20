@@ -10,16 +10,16 @@ public class CustomerValidatorTests
     [Fact]
     public void ValidateCustomer_ReturnsSuccess_ForValidCustomerInput()
     {
-        OperationResult<bool> result = _validator.ValidateCustomer("Dana Levi", "123456782", "0501234567", "dana.levi@gmail.com");
+        OperationResult<bool> result = _validator.ValidateCustomer("Dana Levi", "123456782", "0501234567", "dana@example.com");
 
         Assert.True(result.IsSuccess);
     }
 
     [Theory]
-    [InlineData("Dana1 Levi", "123456782", "0501234567", "dana.levi@gmail.com", ValidationMessages.InvalidFullName)]
-    [InlineData("Dana Levi", "12345678A", "0501234567", "dana.levi@gmail.com", ValidationMessages.InvalidIsraeliIdentityNumber)]
-    [InlineData("Dana Levi", "123456782", "501234567", "dana.levi@gmail.com", ValidationMessages.InvalidPhone)]
-    [InlineData("Dana Levi", "123456782", "0501234567", "dana-gmail.com", ValidationMessages.InvalidEmail)]
+    [InlineData("Dana1 Levi", "123456782", "0501234567", "dana@example.com", ValidationMessages.InvalidFullName)]
+    [InlineData("Dana Levi", "12345678A", "0501234567", "dana@example.com", ValidationMessages.InvalidIsraeliIdentityNumber)]
+    [InlineData("Dana Levi", "123456782", "501234567", "dana@example.com", ValidationMessages.InvalidPhone)]
+    [InlineData("Dana Levi", "123456782", "0501234567", "dana-example.com", ValidationMessages.InvalidEmail)]
     public void ValidateCustomer_ReturnsClearOracle_ForInvalidInput(
         string fullName,
         string identityNumber,

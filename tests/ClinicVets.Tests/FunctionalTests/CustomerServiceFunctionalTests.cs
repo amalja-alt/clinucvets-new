@@ -11,9 +11,9 @@ public class CustomerServiceFunctionalTests
     public void RegisterCustomer_ForSecretary_Succeeds()
     {
         FakeCustomerRepository customers = new();
-        CustomerService service = new(customers, new CustomerValidator());
+        CustomerService service = new(customers, new FakeAnimalRepository(), new CustomerValidator());
 
-        OperationResult<Customer> result = service.RegisterCustomer(TestEmployees.Secretary(), "Dana Levi", "123456782", "0501234567", "dana.levi@gmail.com");
+        OperationResult<Customer> result = service.RegisterCustomer(TestEmployees.Secretary(), "Dana Levi", "123456782", "0501234567", "dana@example.com");
 
         Assert.True(result.IsSuccess);
         Assert.Equal("Dana Levi", result.Value?.FullName);
@@ -23,10 +23,10 @@ public class CustomerServiceFunctionalTests
     public void RegisterCustomer_WithDuplicateIdentity_Fails()
     {
         FakeCustomerRepository customers = new();
-        customers.Add(new Customer { FullName = "Dana Levi", IdentityNumber = "123456782", Phone = "0501234567", Email = "dana.levi@gmail.com" });
-        CustomerService service = new(customers, new CustomerValidator());
+        customers.Add(new Customer { FullName = "Dana Levi", IdentityNumber = "123456782", Phone = "0501234567", Email = "dana@example.com" });
+        CustomerService service = new(customers, new FakeAnimalRepository(), new CustomerValidator());
 
-        OperationResult<Customer> result = service.RegisterCustomer(TestEmployees.Secretary(), "Dana Other", "123456782", "0527654321", "dana.other@gmail.com");
+        OperationResult<Customer> result = service.RegisterCustomer(TestEmployees.Secretary(), "Dana Other", "123456782", "0527654321", "other@example.com");
 
         Assert.False(result.IsSuccess);
         Assert.Equal(ValidationMessages.DuplicateCustomer, result.ErrorMessage);
@@ -69,7 +69,7 @@ public class CustomerServiceFunctionalTests
     private static (CustomerService Service, Customer Saved) ServiceWithCustomer()
     {
         FakeCustomerRepository customers = new();
-        Customer saved = customers.Add(new Customer { FullName = "Dana Levi", IdentityNumber = "123456782", Phone = "0501234567", Email = "dana.levi@gmail.com" });
-        return (new CustomerService(customers, new CustomerValidator()), saved);
+        Customer saved = customers.Add(new Customer { FullName = "Dana Levi", IdentityNumber = "123456782", Phone = "0501234567", Email = "dana@example.com" });
+        return (new CustomerService(customers, new FakeAnimalRepository(), new CustomerValidator()), saved);
     }
 }
