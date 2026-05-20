@@ -66,11 +66,11 @@ public class ValidationRulesTests
     }
 
     [Theory]
-    [InlineData("person@gmail.com", true)]
-    [InlineData("person.name@mail.co.il", true)]
-    [InlineData("persongmail.com", false)]
+    [InlineData("person@example.com", true)]
+    [InlineData("person.name@example.co.il", true)]
+    [InlineData("personexample.com", false)]
     [InlineData("person@", false)]
-    [InlineData("person example@gmail.com", false)]
+    [InlineData("person example@example.com", false)]
     public void IsEmailValid_ChecksEmailFormat(string email, bool expected)
     {
         Assert.Equal(expected, ValidationRules.IsEmailValid(email));
