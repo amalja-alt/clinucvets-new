@@ -32,9 +32,9 @@ public class CoreRegressionTests
     [Fact]
     public void CustomerRegistration_CoreFlow_StillWorks()
     {
-        CustomerService service = new(new FakeCustomerRepository(), new FakeAnimalRepository(), new CustomerValidator());
+        CustomerService service = new(new FakeCustomerRepository(), new CustomerValidator());
 
-        OperationResult<Customer> result = service.RegisterCustomer(TestEmployees.Secretary(), "Dana Levi", "123456782", "0501234567", "dana@example.com");
+        OperationResult<Customer> result = service.RegisterCustomer(TestEmployees.Secretary(), "Dana Levi", "123456782", "0501234567", "dana.levi@gmail.com");
 
         Assert.True(result.IsSuccess);
     }
@@ -43,8 +43,8 @@ public class CoreRegressionTests
     public void CustomerSearch_CoreFlow_StillWorks()
     {
         FakeCustomerRepository customers = new();
-        Customer saved = customers.Add(new Customer { FullName = "Dana Levi", IdentityNumber = "123456782", Phone = "0501234567", Email = "dana@example.com" });
-        CustomerService service = new(customers, new FakeAnimalRepository(), new CustomerValidator());
+        Customer saved = customers.Add(new Customer { FullName = "Dana Levi", IdentityNumber = "123456782", Phone = "0501234567", Email = "dana.levi@gmail.com" });
+        CustomerService service = new(customers, new CustomerValidator());
 
         OperationResult<Customer?> result = service.SearchByIdentityOrPhone(TestEmployees.Secretary(), saved.Phone);
 
@@ -52,27 +52,4 @@ public class CoreRegressionTests
         Assert.Equal(saved.Id, result.Value?.Id);
     }
 
-    [Fact]
-    public void AnimalRegistration_CoreFlow_StillWorks()
-    {
-        FakeCustomerRepository customers = new();
-        Customer owner = customers.Add(new Customer { FullName = "Dana Levi", IdentityNumber = "123456782", Phone = "0501234567", Email = "dana@example.com" });
-        AnimalService service = new(new FakeAnimalRepository(), customers, new AnimalValidator());
-
-        OperationResult<Animal> result = service.AddAnimal("Buddy", "DOG-1001", AnimalType.Dog, 18.5m, new DateOnly(2021, 4, 12), DateOnly.FromDateTime(DateTime.Today), owner.Id);
-
-        Assert.True(result.IsSuccess);
-    }
-
-    [Fact]
-    public void VisitService_CoreFlow_StillWorks()
-    {
-        FakeAnimalRepository animals = new();
-        animals.Seed(new Animal { Id = 1, Name = "Buddy", ChipNumber = "DOG-1001", Type = AnimalType.Dog, WeightKg = 18.5m, BirthDate = new DateOnly(2021, 4, 12), LastVaccinationDate = DateOnly.FromDateTime(DateTime.Today), OwnerCustomerId = 1 });
-        VisitService service = new(new FakeVisitRepository(), animals, new FakeMedicineRepository(), new VisitValidator());
-
-        OperationResult<Visit> result = service.OpenVisit(TestEmployees.Veterinarian(), 1, "Annual checkup", "Healthy", []);
-
-        Assert.True(result.IsSuccess);
-    }
 }

@@ -128,3 +128,16 @@ C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\tests\ClinicVets.Te
 C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\tests\ClinicVets.Tests\obj\Debug\net10.0-windows\ClinicVets.Tests.pdb
 C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\tests\ClinicVets.Tests\obj\Debug\net10.0-windows\ClinicVets.Tests.genruntimeconfig.cache
 C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\tests\ClinicVets.Tests\obj\Debug\net10.0-windows\ref\ClinicVets.Tests.dll
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\.msCoverageSourceRootsMapping_ClinicVets.Tests
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\CoverletSourceRootsMapping_ClinicVets.Tests
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\testhost.dll
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\xunit.abstractions.dll
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\ClinicVets.deps.json
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\ClinicVets.runtimeconfig.json
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\ClinicVets.exe
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\testhost.exe
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\xunit.runner.visualstudio.testadapter.dll
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\ClinicVets.Tests.deps.json
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\ClinicVets.Tests.runtimeconfig.json
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\ClinicVets.Tests.dll
+C:\Users\alaas\OneDrive\שולחן העבודה\בדיקות\test-build-check\Debug\net10.0-windows\ClinicVets.Tests.pdb
