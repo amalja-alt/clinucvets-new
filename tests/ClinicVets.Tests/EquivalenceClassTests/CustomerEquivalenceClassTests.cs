@@ -17,8 +17,8 @@ public class CustomerEquivalenceClassTests
     }
 
     [Theory]
-    [InlineData("dana@example.com", true)]
-    [InlineData("dana-example.com", false)]
+    [InlineData("dana.levi@gmail.com", true)]
+    [InlineData("dana-gmail.com", false)]
     public void Email_ValidAndInvalidPartitions(string email, bool expected)
     {
         Assert.Equal(expected, ValidationRules.IsEmailValid(email));
