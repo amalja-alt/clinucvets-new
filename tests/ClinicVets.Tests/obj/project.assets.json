@@ -1,7 +1,7 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
-    "net10.0-windows7.0": {
+    "net10.0-windows": {
       "coverlet.collector/6.0.4": {
         "type": "package",
         "build": {
@@ -1222,7 +1222,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net10.0-windows7.0": [
+    "net10.0-windows": [
       "ClinicVets >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 17.14.1",
       "coverlet.collector >= 6.0.4",
@@ -1231,19 +1231,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alaas\\.nuget\\packages\\": {}
+    "C:\\Users\\WIN10\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\alaas\\OneDrive\\שולחן העבודה\\בדיקות\\tests\\ClinicVets.Tests\\ClinicVets.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\WIN10\\clinucvets-new\\tests\\ClinicVets.Tests\\ClinicVets.Tests.csproj",
       "projectName": "ClinicVets.Tests",
-      "projectPath": "c:\\Users\\alaas\\OneDrive\\שולחן העבודה\\בדיקות\\tests\\ClinicVets.Tests\\ClinicVets.Tests.csproj",
-      "packagesPath": "C:\\Users\\alaas\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\alaas\\OneDrive\\שולחן העבודה\\בדיקות\\tests\\ClinicVets.Tests\\obj\\",
+      "projectPath": "C:\\Users\\WIN10\\clinucvets-new\\tests\\ClinicVets.Tests\\ClinicVets.Tests.csproj",
+      "packagesPath": "C:\\Users\\WIN10\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\WIN10\\clinucvets-new\\tests\\ClinicVets.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\alaas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\WIN10\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1254,11 +1254,12 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net10.0-windows7.0": {
+        "net10.0-windows": {
+          "framework": "net10.0-windows7.0",
           "targetAlias": "net10.0-windows",
           "projectReferences": {
-            "C:\\Users\\alaas\\OneDrive\\שולחן העבודה\\בדיקות\\ClinicVets.csproj": {
-              "projectPath": "C:\\Users\\alaas\\OneDrive\\שולחן העבודה\\בדיקות\\ClinicVets.csproj"
+            "C:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj": {
+              "projectPath": "C:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj"
             }
           }
         }
@@ -1273,10 +1274,11 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
-      "net10.0-windows7.0": {
+      "net10.0-windows": {
+        "framework": "net10.0-windows7.0",
         "targetAlias": "net10.0-windows",
         "dependencies": {
           "Microsoft.NET.Test.Sdk": {
@@ -1312,7 +1314,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
