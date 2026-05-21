@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("ClinicVets.Tests")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("ClinicVets")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5bb1146d9a68fe7c5bba93ca003afbf8f2554134")]
-[assembly: System.Reflection.AssemblyProductAttribute("ClinicVets.Tests")]
-[assembly: System.Reflection.AssemblyTitleAttribute("ClinicVets.Tests")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01964bde5de8a5381c8b0aaf1006d6580589d9a1")]
+[assembly: System.Reflection.AssemblyProductAttribute("ClinicVets")]
+[assembly: System.Reflection.AssemblyTitleAttribute("ClinicVets")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
