@@ -1258,8 +1258,8 @@
           "framework": "net10.0-windows7.0",
           "targetAlias": "net10.0-windows",
           "projectReferences": {
-            "C:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj": {
-              "projectPath": "C:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj"
+            "c:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj": {
+              "projectPath": "c:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj"
             }
           }
         }

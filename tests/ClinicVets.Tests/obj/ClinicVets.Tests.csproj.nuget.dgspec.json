@@ -4,14 +4,14 @@
     "C:\\Users\\WIN10\\clinucvets-new\\tests\\ClinicVets.Tests\\ClinicVets.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj": {
+    "c:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj",
+        "projectUniqueName": "c:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj",
         "projectName": "ClinicVets",
-        "projectPath": "C:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj",
+        "projectPath": "c:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj",
         "packagesPath": "C:\\Users\\WIN10\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\WIN10\\clinucvets-new\\obj\\",
+        "outputPath": "c:\\Users\\WIN10\\clinucvets-new\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\WIN10\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -391,8 +391,8 @@
             "framework": "net10.0-windows7.0",
             "targetAlias": "net10.0-windows",
             "projectReferences": {
-              "C:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj": {
-                "projectPath": "C:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj"
+              "c:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj": {
+                "projectPath": "c:\\Users\\WIN10\\clinucvets-new\\ClinicVets.csproj"
               }
             }
           }
