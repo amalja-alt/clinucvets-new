@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClinicVets.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c416572f834228c6e0c2612937cefe0db5964c77")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c3fc95a42b60eeb91cf321b43ee51e328861717")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClinicVets.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClinicVets.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
