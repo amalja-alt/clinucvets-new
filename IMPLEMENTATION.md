@@ -28,7 +28,7 @@ The project also includes animal, medicine, visit, and dashboard modules. These 
 - Secretary-only permission rules for customer registration, search, and linked-animal display.
 - SQLite database setup for clinic entities.
 - Seeded roles: `Veterinarian` and `Secretary`.
-- Employee passwords are stored as hashes and verified during login.
+- Employee passwords are stored as entered for the current course implementation and compared during login.
 - Israeli ID format validation: exactly 9 numeric digits.
 - xUnit test project with validation and service-level tests.
 

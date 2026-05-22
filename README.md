@@ -9,7 +9,7 @@ This course assignment focuses mainly on two workflows:
 1. Employee login and employee registration.
 2. Secretary-only customer management.
 
-Employee scope includes SQLite-backed login, authentication flow, password hashing, employee registration, username/password/employee ID/email/Israeli ID validation, and role selection for `Secretary` or `Veterinarian`.
+Employee scope includes SQLite-backed login, authentication flow, employee registration, username/password/employee ID/email/Israeli ID validation, and role selection for `Secretary` or `Veterinarian`. Passwords are saved in the database as entered for the current course implementation.
 
 Customer scope includes registering customers, searching customers by Israeli ID or phone number, and displaying animals linked to a customer. Customer management is restricted to `Secretary` users. `Veterinarian` users must not register, search, or manage customer information.
 

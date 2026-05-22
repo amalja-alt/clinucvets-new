@@ -11,7 +11,7 @@ public class CoreRegressionTests
     public void Login_CoreFlow_StillWorks()
     {
         FakeEmployeeRepository employees = new();
-        employees.Seed(new Employee { Id = 1, Username = "secret1", PasswordHash = PasswordHasher.HashPassword("Secret#1"), EmployeeNumber = "9002", Email = "secretary@clinicvets.com", IdentityNumber = "100000009", Role = StaffRole.Secretary });
+        employees.Seed(new Employee { Id = 1, Username = "secret1", PasswordHash = "Secret#1", EmployeeNumber = "9002", Email = "secretary@clinicvets.com", IdentityNumber = "100000009", Role = StaffRole.Secretary });
         AuthService service = new(employees, new EmployeeValidator());
 
         AuthenticationResult result = service.Login("secret1", "Secret#1");

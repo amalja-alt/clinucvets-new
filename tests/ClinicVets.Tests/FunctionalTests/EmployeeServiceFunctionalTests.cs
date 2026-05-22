@@ -8,7 +8,7 @@ namespace ClinicVets.Tests.FunctionalTests;
 public class EmployeeServiceFunctionalTests
 {
     [Fact]
-    public void RegisterEmployee_WithValidData_SucceedsAndStoresHashedPassword()
+    public void RegisterEmployee_WithValidData_SucceedsAndStoresPassword()
     {
         FakeEmployeeRepository employees = new();
         EmployeeService service = new(employees, new EmployeeValidator());
@@ -17,8 +17,7 @@ public class EmployeeServiceFunctionalTests
 
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
-        Assert.NotEqual("Worker#1", result.Value!.PasswordHash);
-        Assert.True(PasswordHasher.VerifyPassword("Worker#1", result.Value.PasswordHash));
+        Assert.Equal("Worker#1", result.Value!.PasswordHash);
     }
 
     [Fact]

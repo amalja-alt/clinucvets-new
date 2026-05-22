@@ -9,7 +9,7 @@ The implementation/testing responsibility for this course assignment is mainly:
 1. employee login and employee registration,
 2. secretary-only customer management for animal owners.
 
-Employee login and registration includes SQLite-backed login, authentication flow, password hashing, employee registration, username validation, password validation, employee ID validation, email validation, Israeli ID validation, and role selection for `Secretary` or `Veterinarian`.
+Employee login and registration includes SQLite-backed login, authentication flow, employee registration, username validation, password validation, employee ID validation, email validation, Israeli ID validation, and role selection for `Secretary` or `Veterinarian`. Passwords are stored as entered for the current course implementation.
 
 Customer management includes registering customers, searching by Israeli ID or phone number, and displaying animals linked to a customer. Customer management is restricted to `Secretary` users. `Veterinarian` users must not register, search, or manage customer information.
 
@@ -239,7 +239,7 @@ Flow:
 4. If validation fails, `AuthenticationResult.Failure` is returned to the form.
 5. If validation passes, `AuthService` calls `IEmployeeRepository.FindByUsername`.
 6. `SqliteEmployeeRepository` reads the employee from SQLite by username.
-7. `AuthService` verifies the entered password against the saved password hash.
+7. `AuthService` compares the entered password with the saved database password value.
 8. If the employee does not exist or the password is wrong, login fails with `ValidationMessages.WrongCredentials`.
 9. If login succeeds, `AuthService.CurrentUser` is set.
 10. `LoginForm` opens:
@@ -274,7 +274,7 @@ Flow:
 6. If validation fails, an `OperationResult<Employee>.Failure` is returned with a clear validation message.
 7. If validation passes, `EmployeeService` calls `IEmployeeRepository.ExistsByRegistrationFields`.
 8. If a duplicate username, employee number, email, or identity number exists, registration fails.
-9. If no duplicate exists, `EmployeeService` hashes the password and stores the hash on the employee model.
+9. If no duplicate exists, `EmployeeService` stores the entered password value on the employee model.
 10. `EmployeeService` creates an `Employee` model.
 11. `SqliteEmployeeRepository.Add` inserts the employee into SQLite.
 12. The saved employee is returned to the form.
@@ -459,9 +459,9 @@ The UI may show hints, but validators are the source of truth.
 
 ### Password Storage
 
-Employee passwords are stored as PBKDF2-SHA256 hashes through `PasswordHasher`.
+Employee passwords are stored as entered for the current course implementation.
 
-The SQLite column is named `PasswordHash` and stores the formatted hash value. Login verifies the entered password against that hash instead of comparing plain text.
+The SQLite column is named `PasswordHash` because that is the existing schema name, but the current stored value is the entered password text.
 
 ### Authentication
 
@@ -471,7 +471,7 @@ Authentication is handled by `AuthService`.
 
 1. validates username/password input,
 2. loads the employee by username,
-3. verifies the entered password against the saved hash,
+3. compares the entered password with the saved database value,
 4. stores the logged-in employee in `CurrentUser`.
 
 ### Authorization
@@ -994,8 +994,7 @@ These result objects act as test oracles and make behavior easier to inspect.
 | Customer service | `src/Services/CustomerService.cs` |
 | Animal service, broader module | `src/Services/AnimalService.cs` |
 | Visit service, broader module | `src/Services/VisitService.cs` |
-| Password hashing and verification | `src/Services/PasswordHasher.cs` |
-| Login password verification | `src/Services/AuthService.cs` |
+| Login password comparison | `src/Services/AuthService.cs` |
 | Validation messages | `src/Services/ValidationMessages.cs` |
 | Shared service container | `src/Services/ClinicAppServices.cs` |
 | Low-level validation rules | `src/Validators/ValidationRules.cs` |

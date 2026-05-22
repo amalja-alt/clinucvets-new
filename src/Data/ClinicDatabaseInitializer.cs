@@ -333,7 +333,7 @@ public class ClinicDatabaseInitializer(string connectionString)
                 RoleId = excluded.RoleId;
             """;
         command.Parameters.AddWithValue("$username", username);
-        command.Parameters.AddWithValue("$passwordHash", PasswordHasher.HashPassword(password));
+        command.Parameters.AddWithValue("$passwordHash", password);
         command.Parameters.AddWithValue("$employeeNumber", employeeNumber);
         command.Parameters.AddWithValue("$email", email);
         command.Parameters.AddWithValue("$identityNumber", identityNumber);

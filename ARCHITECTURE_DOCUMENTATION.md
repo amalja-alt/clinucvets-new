@@ -16,7 +16,7 @@ The main assignment scope is:
 1. Employee login and employee registration.
 2. Customer management for animal owners.
 
-Employee login and registration includes SQLite-backed login, authentication flow, password hashing, employee registration, username validation, password validation, employee ID validation, email validation, Israeli ID validation, and role selection for `Secretary` or `Veterinarian`.
+Employee login and registration includes SQLite-backed login, authentication flow, employee registration, username validation, password validation, employee ID validation, email validation, Israeli ID validation, and role selection for `Secretary` or `Veterinarian`. Passwords are stored as entered for the current course implementation.
 
 Customer management is secretary-only. A `Secretary` can register customers, search customers by Israeli ID or phone number, and display animals linked to a customer. A `Veterinarian` must not register, search, or manage customer information.
 
@@ -188,7 +188,7 @@ Startup happens in `Program.Main`:
 2. `LoginForm` calls `AuthService.Login`.
 3. `AuthService` validates the login input.
 4. `AuthService` loads the employee through `IEmployeeRepository`.
-5. The entered password is verified against the saved password hash.
+5. The entered password is compared with the saved database password value.
 6. On success, `CurrentUser` is set.
 7. `LoginForm` opens:
    - `SecretaryDashboardForm` for a secretary,
@@ -212,7 +212,7 @@ The form calls `EmployeeService.RegisterEmployee`.
 
 1. validates all registration fields through `EmployeeValidator`,
 2. checks duplicates through `IEmployeeRepository`,
-3. hashes the password and stores the hash on the employee model,
+3. stores the entered password value on the employee model,
 4. saves the employee through the repository.
 
 ## Customer Management Flow

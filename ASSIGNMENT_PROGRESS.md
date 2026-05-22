@@ -20,7 +20,7 @@ Required:
 
 - Login with username and password from the database.
 - Authenticate against SQLite employee data.
-- Store registered employee passwords as hashes.
+- Store registered employee passwords as entered for the current course implementation.
 - Register a new employee.
 - Username: 6-8 English letters/digits, at most 2 digits.
 - Password: 8-10 characters, at least one letter, one digit, and one special character from `!`, `#`, `$`.
@@ -37,8 +37,7 @@ Implemented:
 - `EmployeeService.RegisterEmployee`.
 - `EmployeeValidator`.
 - `ValidationRules`.
-- Password hashing through `PasswordHasher`.
-- Login password verification against the stored hash.
+- Login password comparison against the stored database value.
 - SQLite employee persistence through `SqliteEmployeeRepository`.
 - Role-specific dashboards after login.
 - Demo users for secretary and veterinarian workflows.

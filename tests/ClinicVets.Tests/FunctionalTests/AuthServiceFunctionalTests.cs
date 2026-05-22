@@ -49,7 +49,7 @@ public class AuthServiceFunctionalTests
         {
             Id = 1,
             Username = "secret1",
-            PasswordHash = PasswordHasher.HashPassword("Secret#1"),
+            PasswordHash = "Secret#1",
             EmployeeNumber = "9002",
             Email = "secretary@clinicvets.com",
             IdentityNumber = "100000009",
