@@ -58,7 +58,8 @@ public class CustomerService(
             return OperationResult<Customer?>.Failure(ValidationMessages.CustomerManagementSecretaryOnly);
         }
 
-        return OperationResult<Customer?>.Success(customerRepository.FindByIdentityOrPhone(searchText));
+        string normalizedSearchText = NormalizeSearchText(searchText);
+        return OperationResult<Customer?>.Success(customerRepository.FindByIdentityOrPhone(normalizedSearchText));
     }
 
     public OperationResult<IReadOnlyList<Animal>> GetCustomerAnimals(Employee? currentUser, int customerId)
@@ -73,4 +74,11 @@ public class CustomerService(
     }
 
     private static bool CanManageCustomers(Employee? currentUser) => currentUser?.Role == StaffRole.Secretary;
+
+    private static string NormalizeSearchText(string searchText)
+    {
+        string trimmed = searchText.Trim();
+        string digitsOnly = new(trimmed.Where(char.IsDigit).ToArray());
+        return digitsOnly.Length > 0 ? digitsOnly : trimmed;
+    }
 }

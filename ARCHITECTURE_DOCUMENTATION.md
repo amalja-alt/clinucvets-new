@@ -1,6 +1,6 @@
 # ClinicVets Architecture and Testing Guide
 
-This document describes the current ClinicVets implementation for the Software Testing course project. It is intentionally aligned with the code that exists now.
+This document describes the current ClinicVets implementation for the Software Testing course project. It is intentionally aligned with the code that exists now and keeps the assignment focus separate from broader project modules.
 
 ClinicVets is a C# WinForms veterinary clinic management system with two staff roles only:
 
@@ -8,6 +8,21 @@ ClinicVets is a C# WinForms veterinary clinic management system with two staff r
 - `Veterinarian`
 
 There is no third staff role in the current system.
+
+## My Assignment Scope
+
+The main assignment scope is:
+
+1. Employee login and employee registration.
+2. Customer management for animal owners.
+
+Employee login and registration includes SQLite-backed login, authentication flow, password hashing, employee registration, username validation, password validation, employee ID validation, email validation, Israeli ID validation, and role selection for `Secretary` or `Veterinarian`.
+
+Customer management is secretary-only. A `Secretary` can register customers, search customers by Israeli ID or phone number, and display animals linked to a customer. A `Veterinarian` must not register, search, or manage customer information.
+
+## Other Existing Modules
+
+Animal, animal-category, medicine, visit, dashboard, and lookup modules exist in the codebase for the broader ClinicVets application. They are not the main assignment responsibility, except where they support displaying animals linked to a customer.
 
 ## Layered Architecture
 
@@ -21,13 +36,16 @@ UI Forms -> Services -> Validators and Repositories -> SQLite
 
 Location: `src/UI`
 
-Main forms:
+Main assignment forms:
 
 - `LoginForm`
 - `RegisterEmployeeForm`
 - `SecretaryDashboardForm`
-- `VeterinarianDashboardForm`
 - `CustomerForm`
+
+Other existing forms:
+
+- `VeterinarianDashboardForm`
 - `AnimalForm`
 - `AnimalCategoryForm`
 - `MedicineForm`
@@ -48,11 +66,14 @@ UI forms must not open SQLite connections, write SQL, compare passwords, or dupl
 
 Location: `src/Services`
 
-Important services:
+Main assignment services:
 
 - `AuthService`
 - `EmployeeService`
 - `CustomerService`
+
+Other existing services:
+
 - `AnimalService`
 - `AnimalCategoryService`
 - `MedicineService`
@@ -80,11 +101,14 @@ Examples:
 
 Location: `src/Validators`
 
-Validators:
+Main assignment validators:
 
 - `ValidationRules`
 - `EmployeeValidator`
 - `CustomerValidator`
+
+Other existing validators:
+
 - `AnimalValidator`
 - `AnimalCategoryValidator`
 - `MedicineValidator`
@@ -164,7 +188,7 @@ Startup happens in `Program.Main`:
 2. `LoginForm` calls `AuthService.Login`.
 3. `AuthService` validates the login input.
 4. `AuthService` loads the employee through `IEmployeeRepository`.
-5. The entered password is compared with the saved employee password value.
+5. The entered password is verified against the saved password hash.
 6. On success, `CurrentUser` is set.
 7. `LoginForm` opens:
    - `SecretaryDashboardForm` for a secretary,
@@ -188,7 +212,7 @@ The form calls `EmployeeService.RegisterEmployee`.
 
 1. validates all registration fields through `EmployeeValidator`,
 2. checks duplicates through `IEmployeeRepository`,
-3. stores the password value on the employee model,
+3. hashes the password and stores the hash on the employee model,
 4. saves the employee through the repository.
 
 ## Customer Management Flow
@@ -213,16 +237,16 @@ This rule is enforced in the service layer, not only in the UI.
 
 ### SecretaryDashboardForm
 
-The secretary dashboard focuses on operational clinic workflows:
+For the assignment scope, the secretary dashboard is important because it is the entry point to customer management:
 
 - dashboard summary,
-- appointments and visits overview,
-- customers,
-- pets/animals.
+- customers.
+
+Other existing navigation items such as appointments, visits, and pets/animals support the broader application.
 
 ### VeterinarianDashboardForm
 
-The veterinarian dashboard focuses on medical workflows:
+The veterinarian dashboard is an existing broader-module screen. For this assignment, the important point is that veterinarians must not manage customer records through `CustomerService`.
 
 - today's patients,
 - appointments,

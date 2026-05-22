@@ -2,12 +2,12 @@
 
 This document summarizes the current implementation for the Software Testing course project.
 
-## Assignment Scope
+## My Assignment Scope
 
-The current student assignment part focuses on:
+The current student assignment part focuses mainly on:
 
-1. Login and employee registration for clinic staff.
-2. Customer management for animal owners.
+1. Employee login and employee registration.
+2. Secretary-only customer management for animal owners.
 
 The system has two roles only:
 
@@ -19,6 +19,8 @@ The system has two roles only:
 Required:
 
 - Login with username and password from the database.
+- Authenticate against SQLite employee data.
+- Store registered employee passwords as hashes.
 - Register a new employee.
 - Username: 6-8 English letters/digits, at most 2 digits.
 - Password: 8-10 characters, at least one letter, one digit, and one special character from `!`, `#`, `$`.
@@ -35,7 +37,8 @@ Implemented:
 - `EmployeeService.RegisterEmployee`.
 - `EmployeeValidator`.
 - `ValidationRules`.
-- Employee password storage and login comparison are implemented without hashing for the current course implementation.
+- Password hashing through `PasswordHasher`.
+- Login password verification against the stored hash.
 - SQLite employee persistence through `SqliteEmployeeRepository`.
 - Role-specific dashboards after login.
 - Demo users for secretary and veterinarian workflows.
@@ -46,6 +49,7 @@ Implemented:
 Required:
 
 - Only `Secretary` can access customer management actions.
+- `Veterinarian` must not register, search, or manage customers.
 - Register a new customer.
 - Full name: letters only.
 - Israeli ID: exactly 9 numeric digits.
@@ -62,8 +66,12 @@ Implemented:
 - `CustomerService.SearchByIdentityOrPhone`.
 - `CustomerService.GetCustomerAnimals`.
 - `CustomerRepository` with SQLite persistence.
-- Secretary-only service-level permission enforcement.
-- Functional tests for customer registration and search.
+- Secretary-only service-level permission enforcement for registration, search, and linked-animal display.
+- Functional and authorization tests for customer registration, search, and customer-management restrictions.
+
+## Other Existing Modules
+
+The project also contains broader clinic modules such as animals, animal categories, medicines, visits, and dashboards. They exist to support the full application, especially the requirement to display animals linked to a customer, but they are not the main assignment scope described above.
 
 ## Architecture
 
@@ -102,6 +110,8 @@ Implemented test areas:
 - `EmployeeService.RegisterEmployee`
 - `CustomerService.RegisterCustomer`
 - `CustomerService.SearchByIdentityOrPhone`
+- `CustomerService.GetCustomerAnimals`
+- role authorization for secretary-only customer management
 
 Testing techniques covered by the first tests:
 

@@ -18,4 +18,23 @@ public static class ValidationMessages
     public const string InvalidFullName = "Full name must contain letters only.";
     public const string InvalidPhone = "Invalid phone number format.";
     public const string DuplicateCustomer = "Customer identity number already exists.";
+
+    public const string InvalidAnimalName = "Animal name must contain letters only.";
+    public const string InvalidAnimalWeight = "Animal weight must be between 0.1 and 100 kg.";
+    public const string InvalidAnimalBirthDate = "Animal birth date must be valid and cannot be in the future.";
+    public const string AnimalOwnerRequired = "Animal owner customer was not found.";
+    public const string DuplicateChipNumber = "Animal chip number already exists.";
+    public const string AnimalNotFound = "Animal was not found.";
+
+    public const string CategoryNameRequired = "Category name is required.";
+    public const string InvalidCategoryName = "Category name must contain letters only.";
+    public const string DuplicateCategoryName = "Animal category already exists.";
+    public const string CategoryNotFound = "Animal category was not found.";
+    public const string CategoryInUse = "Animal category cannot be removed while animals use it.";
+
+    public const string MedicineNameRequired = "Medicine name is required.";
+    public const string InvalidMedicinePriceOrQuantity = "Medicine price and quantity must be zero or greater.";
+
+    public const string VeterinarianOnly = "Only a veterinarian can open visits.";
+    public const string VisitReasonRequired = "Visit reason is required.";
 }

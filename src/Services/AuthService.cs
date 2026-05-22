@@ -21,7 +21,7 @@ public class AuthService(IEmployeeRepository employeeRepository, EmployeeValidat
 
         Employee? employee = employeeRepository.FindByUsername(username);
 
-        if (employee is null || employee.PasswordHash != password)
+        if (employee is null || !PasswordHasher.VerifyPassword(password, employee.PasswordHash))
         {
             return AuthenticationResult.Failure(ValidationMessages.WrongCredentials);
         }

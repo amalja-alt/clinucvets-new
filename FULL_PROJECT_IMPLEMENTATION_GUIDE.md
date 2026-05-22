@@ -1,11 +1,21 @@
 # ClinicVets Full Project Implementation Guide
 
-This document explains the current ClinicVets implementation for developers, testers, and reviewers. It focuses on the actual codebase, with special attention to the Software Testing course requirements and the assignment scope:
+This document explains the current ClinicVets implementation for developers, testers, and reviewers. It clearly separates the course assignment responsibility from broader existing project modules.
+
+## My Assignment Scope
+
+The implementation/testing responsibility for this course assignment is mainly:
 
 1. employee login and employee registration,
-2. customer management for animal owners.
+2. secretary-only customer management for animal owners.
 
-The document intentionally avoids describing features that are not implemented.
+Employee login and registration includes SQLite-backed login, authentication flow, password hashing, employee registration, username validation, password validation, employee ID validation, email validation, Israeli ID validation, and role selection for `Secretary` or `Veterinarian`.
+
+Customer management includes registering customers, searching by Israeli ID or phone number, and displaying animals linked to a customer. Customer management is restricted to `Secretary` users. `Veterinarian` users must not register, search, or manage customer information.
+
+## Other Existing Modules
+
+The codebase also contains animal, animal-category, medicine, visit, dashboard, and lookup modules. These are part of the broader ClinicVets application. They should not be treated as the main assignment scope, except where linked animals are displayed from the customer-management flow.
 
 ## 1. Project Overview
 
@@ -41,30 +51,28 @@ The roles are defined in `src/Models/StaffRole.cs`.
 
 ### Secretary
 
-Implemented secretary capabilities:
+Main assignment capabilities for secretary:
 
 - log in through `LoginForm`,
 - open `SecretaryDashboardForm`,
 - register customers through `CustomerForm`,
 - search customers by Israeli ID or phone,
 - view customer details,
-- view animals linked to a customer,
-- access pets/animals and appointments/visits screens from the secretary dashboard.
+- view animals linked to a customer.
 
 Customer-management write and search operations are enforced in `CustomerService`, not only in the UI.
 
 ### Veterinarian
 
-Implemented veterinarian capabilities:
+Assignment-relevant veterinarian behavior:
 
 - log in through `LoginForm`,
 - open `VeterinarianDashboardForm`,
-- access patient/animal related views,
-- open visit/treatment workflows through `VisitService`,
-- use medical/visit-related dashboard sections,
-- use medicine/prescription related navigation where implemented.
+- cannot register customers,
+- cannot search customers,
+- cannot manage customer information through `CustomerService`.
 
-`VisitService.OpenVisit` requires the current user role to be `Veterinarian`.
+Other patient, visit, treatment, and medicine screens are broader existing modules.
 
 ## 3. High-Level Architecture
 
@@ -231,7 +239,7 @@ Flow:
 4. If validation fails, `AuthenticationResult.Failure` is returned to the form.
 5. If validation passes, `AuthService` calls `IEmployeeRepository.FindByUsername`.
 6. `SqliteEmployeeRepository` reads the employee from SQLite by username.
-7. `AuthService` compares the entered password with the saved employee password value.
+7. `AuthService` verifies the entered password against the saved password hash.
 8. If the employee does not exist or the password is wrong, login fails with `ValidationMessages.WrongCredentials`.
 9. If login succeeds, `AuthService.CurrentUser` is set.
 10. `LoginForm` opens:
@@ -266,7 +274,7 @@ Flow:
 6. If validation fails, an `OperationResult<Employee>.Failure` is returned with a clear validation message.
 7. If validation passes, `EmployeeService` calls `IEmployeeRepository.ExistsByRegistrationFields`.
 8. If a duplicate username, employee number, email, or identity number exists, registration fails.
-9. If no duplicate exists, `EmployeeService` stores the password value on the employee model.
+9. If no duplicate exists, `EmployeeService` hashes the password and stores the hash on the employee model.
 10. `EmployeeService` creates an `Employee` model.
 11. `SqliteEmployeeRepository.Add` inserts the employee into SQLite.
 12. The saved employee is returned to the form.
@@ -451,9 +459,9 @@ The UI may show hints, but validators are the source of truth.
 
 ### Password Storage
 
-For the current course implementation, employee passwords are saved as entered and login compares the entered value with the saved value.
+Employee passwords are stored as PBKDF2-SHA256 hashes through `PasswordHasher`.
 
-Important implementation note: the SQLite column is still named `PasswordHash` because that is the existing schema column, but the current stored value is not hashed.
+The SQLite column is named `PasswordHash` and stores the formatted hash value. Login verifies the entered password against that hash instead of comparing plain text.
 
 ### Authentication
 
@@ -463,7 +471,7 @@ Authentication is handled by `AuthService`.
 
 1. validates username/password input,
 2. loads the employee by username,
-3. compares the entered password with the saved password value,
+3. verifies the entered password against the saved hash,
 4. stores the logged-in employee in `CurrentUser`.
 
 ### Authorization
@@ -517,6 +525,13 @@ Implemented pattern:
 
 This avoids scattering many independent windows during normal dashboard navigation and keeps the workflow centered in one dashboard window after login.
 
+For the assignment, dashboard navigation matters mainly because:
+
+- secretary users can reach `CustomerForm`,
+- veterinarian users must not manage customers.
+
+Other dashboard sections are broader application modules.
+
 Current examples:
 
 - `SecretaryDashboardForm.OpenEmbeddedForm`
@@ -532,13 +547,16 @@ The UI uses WinForms layout containers to improve maintainability and scaling:
 - `Dock` and `Anchor` properties for resizing behavior,
 - centralized styling through `UiTheme`.
 
-Forms with notable layout work:
+Assignment forms with notable layout work:
 
 - `LoginForm`: centered login card and role-based dashboard transition.
 - `RegisterEmployeeForm`: structured registration form with field hints.
 - `CustomerForm`: customer add/search/details/animals layout.
-- `SecretaryDashboardForm`: sidebar navigation and embedded content.
-- `VeterinarianDashboardForm`: sidebar navigation, patient sections, visit-related actions.
+
+Other existing forms:
+
+- `SecretaryDashboardForm`: broader sidebar navigation and embedded content.
+- `VeterinarianDashboardForm`: broader patient sections and visit-related actions.
 
 Important note: some veterinarian dashboard action cards are visual workflow placeholders where no action is wired yet. The documentation and tests do not treat those as completed service features.
 
@@ -618,12 +636,13 @@ Purpose:
 
 - verify role-based access rules.
 
-Examples:
+Assignment-focused examples:
 
 - secretary can register/search customers,
 - veterinarian cannot register customers,
-- null user cannot perform restricted customer actions,
-- veterinarian can open visits when data is valid.
+- veterinarian cannot search customers,
+- veterinarian cannot view linked customer animals through customer management,
+- null user cannot perform restricted customer actions.
 
 ### FunctionalTests
 
@@ -655,14 +674,12 @@ Purpose:
 
 - verify that core flows still work after changes.
 
-Covered flows:
+Assignment-focused covered flows:
 
 - login,
 - employee registration validation,
 - customer registration,
-- customer search,
-- animal registration service,
-- visit service.
+- customer search.
 
 ### DecisionTableTests
 
@@ -970,14 +987,15 @@ These result objects act as test oracles and make behavior easier to inspect.
 | Employee registration UI | `src/UI/RegisterEmployeeForm.cs` |
 | Customer management UI | `src/UI/CustomerForm.cs` |
 | Secretary dashboard | `src/UI/SecretaryDashboardForm.cs` |
-| Veterinarian dashboard | `src/UI/VeterinarianDashboardForm.cs` |
+| Veterinarian dashboard, broader module | `src/UI/VeterinarianDashboardForm.cs` |
 | UI styling | `src/UI/UiTheme.cs` |
 | Authentication service | `src/Services/AuthService.cs` |
 | Employee service | `src/Services/EmployeeService.cs` |
 | Customer service | `src/Services/CustomerService.cs` |
-| Animal service | `src/Services/AnimalService.cs` |
-| Visit service | `src/Services/VisitService.cs` |
-| Password comparison | `src/Services/AuthService.cs` |
+| Animal service, broader module | `src/Services/AnimalService.cs` |
+| Visit service, broader module | `src/Services/VisitService.cs` |
+| Password hashing and verification | `src/Services/PasswordHasher.cs` |
+| Login password verification | `src/Services/AuthService.cs` |
 | Validation messages | `src/Services/ValidationMessages.cs` |
 | Shared service container | `src/Services/ClinicAppServices.cs` |
 | Low-level validation rules | `src/Validators/ValidationRules.cs` |
