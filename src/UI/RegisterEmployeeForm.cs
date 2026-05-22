@@ -292,12 +292,7 @@ public class RegisterEmployeeForm : Form
 
         _statusLabel.ForeColor = UiTheme.Success;
         _statusLabel.Text = $"Employee {result.Value!.Username} registered successfully.";
-
-        _usernameTextBox.Clear();
-        _passwordTextBox.Clear();
-        _employeeNumberTextBox.Clear();
-        _emailTextBox.Clear();
-        _identityTextBox.Clear();
-        _roleComboBox.SelectedIndex = 1;
+        DialogResult = DialogResult.OK;
+        Close();
     }
 }
