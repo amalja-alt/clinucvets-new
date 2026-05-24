@@ -2,9 +2,13 @@ using ClinicVets.Models;
 using ClinicVets.Repositories;
 using ClinicVets.Validators;
 <<<<<<< HEAD
+<<<<<<< HEAD
 using Microsoft.Data.Sqlite;
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+using Microsoft.Data.Sqlite;
+>>>>>>> main
 
 namespace ClinicVets.Services;
 
@@ -21,9 +25,12 @@ public class CustomerService(
         string email)
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         // Assignment requirement: customer management is restricted to secretaries.
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+>>>>>>> main
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<Customer>.Failure(ValidationMessages.SecretaryOnly);
@@ -40,6 +47,7 @@ public class CustomerService(
             return OperationResult<Customer>.Failure(validationResult.ErrorMessage);
         }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         try
         {
@@ -65,12 +73,29 @@ public class CustomerService(
         }
 =======
         if (customerRepository.ExistsByIdentityNumber(identityNumber))
+=======
+        try
+>>>>>>> main
         {
-            return OperationResult<Customer>.Failure(ValidationMessages.DuplicateCustomer);
-        }
+            if (customerRepository.ExistsByIdentityNumber(identityNumber))
+            {
+                return OperationResult<Customer>.Failure(ValidationMessages.DuplicateCustomer);
+            }
 
-        Customer customer = new()
+            Customer customer = new()
+            {
+                FullName = fullName,
+                IdentityNumber = identityNumber,
+                Phone = phone,
+                Email = email
+            };
+
+            Customer savedCustomer = customerRepository.Add(customer);
+            return OperationResult<Customer>.Success(savedCustomer);
+        }
+        catch (SqliteException exception) when (exception.SqliteErrorCode == 5)
         {
+<<<<<<< HEAD
             FullName = fullName,
             IdentityNumber = identityNumber,
             Phone = phone,
@@ -80,20 +105,30 @@ public class CustomerService(
         Customer savedCustomer = customerRepository.Add(customer);
         return OperationResult<Customer>.Success(savedCustomer);
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            return OperationResult<Customer>.Failure(ValidationMessages.DatabaseBusy);
+        }
+>>>>>>> main
     }
 
     public OperationResult<Customer?> SearchByIdentityOrPhone(Employee? currentUser, string searchText)
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         // Defense in depth: searches are authorized in the service, not only in the UI.
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+>>>>>>> main
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<Customer?>.Failure(ValidationMessages.CustomerManagementSecretaryOnly);
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
         try
         {
             string normalizedSearchText = NormalizeSearchText(searchText);
@@ -103,17 +138,23 @@ public class CustomerService(
         {
             return OperationResult<Customer?>.Failure(ValidationMessages.DatabaseBusy);
         }
+<<<<<<< HEAD
 =======
         return OperationResult<Customer?>.Success(customerRepository.FindByIdentityOrPhone(searchText));
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+>>>>>>> main
     }
 
     public OperationResult<IReadOnlyList<Animal>> GetCustomerAnimals(Employee? currentUser, int customerId)
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         // Defense in depth: linked animal viewing is part of customer management.
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+>>>>>>> main
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<IReadOnlyList<Animal>>.Failure(ValidationMessages.CustomerManagementSecretaryOnly);
@@ -124,6 +165,9 @@ public class CustomerService(
 
     private static bool CanManageCustomers(Employee? currentUser) => currentUser?.Role == StaffRole.Secretary;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 
     private static string NormalizeSearchText(string searchText)
     {
@@ -131,6 +175,9 @@ public class CustomerService(
         string digitsOnly = new(trimmed.Where(char.IsDigit).ToArray());
         return digitsOnly.Length > 0 ? digitsOnly : trimmed;
     }
+<<<<<<< HEAD
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+>>>>>>> main
 }

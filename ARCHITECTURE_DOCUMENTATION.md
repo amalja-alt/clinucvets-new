@@ -1,10 +1,14 @@
 # ClinicVets Architecture and Testing Guide
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 This document describes the current ClinicVets implementation for the Software Testing course project. It is intentionally aligned with the code that exists now and keeps the assignment focus separate from broader project modules.
 =======
 This document describes the current ClinicVets implementation for the Software Testing course project. It is intentionally aligned with the code that exists now.
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+This document describes the current ClinicVets implementation for the Software Testing course project. It is intentionally aligned with the code that exists now and keeps the assignment focus separate from broader project modules.
+>>>>>>> main
 
 ClinicVets is a C# WinForms veterinary clinic management system with two staff roles only:
 
@@ -14,6 +18,9 @@ ClinicVets is a C# WinForms veterinary clinic management system with two staff r
 There is no third staff role in the current system.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 ## My Assignment Scope
 
 The main assignment scope is:
@@ -29,8 +36,11 @@ Customer management is secretary-only. A `Secretary` can register customers, sea
 
 Animal, animal-category, medicine, visit, dashboard, and lookup modules exist in the codebase for the broader ClinicVets application. They are not the main assignment responsibility, except where they support displaying animals linked to a customer.
 
+<<<<<<< HEAD
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+>>>>>>> main
 ## Layered Architecture
 
 The implementation follows this dependency direction:
@@ -44,14 +54,19 @@ UI Forms -> Services -> Validators and Repositories -> SQLite
 Location: `src/UI`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Main assignment forms:
 =======
 Main forms:
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Main assignment forms:
+>>>>>>> main
 
 - `LoginForm`
 - `RegisterEmployeeForm`
 - `SecretaryDashboardForm`
+<<<<<<< HEAD
 <<<<<<< HEAD
 - `CustomerForm`
 
@@ -62,6 +77,13 @@ Other existing forms:
 - `VeterinarianDashboardForm`
 - `CustomerForm`
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+- `CustomerForm`
+
+Other existing forms:
+
+- `VeterinarianDashboardForm`
+>>>>>>> main
 - `AnimalForm`
 - `AnimalCategoryForm`
 - `MedicineForm`
@@ -83,20 +105,30 @@ UI forms must not open SQLite connections, write SQL, compare passwords, or dupl
 Location: `src/Services`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Main assignment services:
 =======
 Important services:
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Main assignment services:
+>>>>>>> main
 
 - `AuthService`
 - `EmployeeService`
 - `CustomerService`
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 Other existing services:
 
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+
+Other existing services:
+
+>>>>>>> main
 - `AnimalService`
 - `AnimalCategoryService`
 - `MedicineService`
@@ -125,20 +157,30 @@ Examples:
 Location: `src/Validators`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Main assignment validators:
 =======
 Validators:
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Main assignment validators:
+>>>>>>> main
 
 - `ValidationRules`
 - `EmployeeValidator`
 - `CustomerValidator`
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 Other existing validators:
 
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+
+Other existing validators:
+
+>>>>>>> main
 - `AnimalValidator`
 - `AnimalCategoryValidator`
 - `MedicineValidator`
@@ -219,10 +261,14 @@ Startup happens in `Program.Main`:
 3. `AuthService` validates the login input.
 4. `AuthService` loads the employee through `IEmployeeRepository`.
 <<<<<<< HEAD
+<<<<<<< HEAD
 5. The entered password is compared with the saved database password value.
 =======
 5. The entered password is compared with the saved employee password value.
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+5. The entered password is compared with the saved database password value.
+>>>>>>> main
 6. On success, `CurrentUser` is set.
 7. `LoginForm` opens:
    - `SecretaryDashboardForm` for a secretary,
@@ -247,10 +293,14 @@ The form calls `EmployeeService.RegisterEmployee`.
 1. validates all registration fields through `EmployeeValidator`,
 2. checks duplicates through `IEmployeeRepository`,
 <<<<<<< HEAD
+<<<<<<< HEAD
 3. stores the entered password value on the employee model,
 =======
 3. stores the password value on the employee model,
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+3. stores the entered password value on the employee model,
+>>>>>>> main
 4. saves the employee through the repository.
 
 ## Customer Management Flow
@@ -276,6 +326,7 @@ This rule is enforced in the service layer, not only in the UI.
 ### SecretaryDashboardForm
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 For the assignment scope, the secretary dashboard is important because it is the entry point to customer management:
 
 - dashboard summary,
@@ -288,16 +339,23 @@ Other existing navigation items such as appointments, visits, and pets/animals s
 The veterinarian dashboard is an existing broader-module screen. For this assignment, the important point is that veterinarians must not manage customer records through `CustomerService`.
 =======
 The secretary dashboard focuses on operational clinic workflows:
+=======
+For the assignment scope, the secretary dashboard is important because it is the entry point to customer management:
+>>>>>>> main
 
 - dashboard summary,
-- appointments and visits overview,
-- customers,
-- pets/animals.
+- customers.
+
+Other existing navigation items such as appointments, visits, and pets/animals support the broader application.
 
 ### VeterinarianDashboardForm
 
+<<<<<<< HEAD
 The veterinarian dashboard focuses on medical workflows:
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+The veterinarian dashboard is an existing broader-module screen. For this assignment, the important point is that veterinarians must not manage customer records through `CustomerService`.
+>>>>>>> main
 
 - today's patients,
 - appointments,

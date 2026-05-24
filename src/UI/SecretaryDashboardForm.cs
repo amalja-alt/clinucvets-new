@@ -26,9 +26,13 @@ public class SecretaryDashboardForm : Form
 
         UiTheme.ApplyForm(this);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+
+>>>>>>> main
         Text = "ClinicVets - Secretary Dashboard";
         ClientSize = new Size(1180, 760);
         MinimumSize = new Size(900, 620);
@@ -46,6 +50,7 @@ public class SecretaryDashboardForm : Form
             ColumnCount = 2,
             RowCount = 1,
 <<<<<<< HEAD
+<<<<<<< HEAD
             BackColor = Color.FromArgb(245, 248, 251),
             BackgroundImage = Image.FromFile(UiTheme.ImagePasth + "bg.jpg")
         };
@@ -55,6 +60,12 @@ public class SecretaryDashboardForm : Form
         };
         shell.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 224));
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            BackColor = Color.FromArgb(245, 248, 251),
+            BackgroundImage = Image.FromFile(UiTheme.ImagePasth + "bg.jpg")
+        };
+        shell.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300));
+>>>>>>> main
         shell.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         Controls.Add(shell);
 
@@ -68,10 +79,14 @@ public class SecretaryDashboardForm : Form
         {
             Dock = DockStyle.Fill,
 <<<<<<< HEAD
+<<<<<<< HEAD
             BackColor = Color.FromArgb(70,245, 248, 251),
 =======
             BackColor = Color.White,
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            BackColor = Color.FromArgb(70,245, 248, 251),
+>>>>>>> main
             Padding = new Padding(18, 20, 18, 18)
         };
 
@@ -87,6 +102,7 @@ public class SecretaryDashboardForm : Form
         sidebar.Controls.Add(layout);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         layout.Controls.Add(new PictureBox
         {
             Dock = DockStyle.Fill,
@@ -97,13 +113,23 @@ public class SecretaryDashboardForm : Form
 
 =======
         layout.Controls.Add(new Label
+=======
+        layout.Controls.Add(new PictureBox
+>>>>>>> main
         {
-            Text = "ClinicVets",
             Dock = DockStyle.Fill,
+<<<<<<< HEAD
             Font = new Font("Segoe UI", 20F, FontStyle.Bold),
             ForeColor = Color.FromArgb(20, 84, 132),
             TextAlign = ContentAlignment.MiddleLeft
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            SizeMode = PictureBoxSizeMode.StretchImage,
+
+
+            Image = Image.FromFile(UiTheme.ImagePasth + "logo.png")
+
+>>>>>>> main
         }, 0, 0);
 
         FlowLayoutPanel nav = new()
@@ -177,10 +203,14 @@ public class SecretaryDashboardForm : Form
             ColumnCount = 1,
             RowCount = 2,
 <<<<<<< HEAD
+<<<<<<< HEAD
             BackColor = Color.FromArgb(70,245, 248, 251)
 =======
             BackColor = Color.FromArgb(245, 248, 251)
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            BackColor = Color.FromArgb(70,245, 248, 251)
+>>>>>>> main
         };
         main.RowStyles.Add(new RowStyle(SizeType.Absolute, 74));
         main.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
@@ -199,10 +229,14 @@ public class SecretaryDashboardForm : Form
         {
             Dock = DockStyle.Fill,
 <<<<<<< HEAD
+<<<<<<< HEAD
             BackColor = Color.FromArgb(70, 245, 248, 251),
 =======
             BackColor = Color.White,
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            BackColor = Color.FromArgb(70, 245, 248, 251),
+>>>>>>> main
             Padding = new Padding(22, 14, 22, 14)
         };
 
@@ -211,11 +245,16 @@ public class SecretaryDashboardForm : Form
             Dock = DockStyle.Fill,
             ColumnCount = 3,
 <<<<<<< HEAD
+<<<<<<< HEAD
             RowCount = 1,
  
 =======
             RowCount = 1
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            RowCount = 1,
+ 
+>>>>>>> main
         };
         layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 360));
@@ -262,10 +301,14 @@ public class SecretaryDashboardForm : Form
             AutoScroll = true,
             Padding = new Padding(24),
 <<<<<<< HEAD
+<<<<<<< HEAD
             BackColor = Color.FromArgb(70, 245, 248, 251)
 =======
             BackColor = Color.FromArgb(245, 248, 251)
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            BackColor = Color.FromArgb(70, 245, 248, 251)
+>>>>>>> main
         };
 
         TableLayoutPanel content = new()
@@ -276,11 +319,17 @@ public class SecretaryDashboardForm : Form
             ColumnCount = 1,
             RowCount = 4
 <<<<<<< HEAD
+<<<<<<< HEAD
             ,
           
 
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            ,
+          
+
+>>>>>>> main
         };
         content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         scrollHost.Controls.Add(content);
@@ -299,10 +348,14 @@ public class SecretaryDashboardForm : Form
             Dock = DockStyle.Top,
             Height = 116,
 <<<<<<< HEAD
+<<<<<<< HEAD
             BackColor = Color.FromArgb(70,20, 150, 170),
 =======
             BackColor = Color.FromArgb(20, 150, 170),
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            BackColor = Color.FromArgb(70,20, 150, 170),
+>>>>>>> main
             GradientEndColor = Color.FromArgb(50, 126, 210),
             BorderSize = 0,
             CornerRadius = 16,
@@ -343,16 +396,22 @@ public class SecretaryDashboardForm : Form
             ColumnCount = 3,
             RowCount = 1,
 <<<<<<< HEAD
+<<<<<<< HEAD
             Margin = new Padding(0, 0, 0, 18),
 
 =======
             Margin = new Padding(0, 0, 0, 18)
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            Margin = new Padding(0, 0, 0, 18),
+
+>>>>>>> main
         };
         cards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
         cards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
         cards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.34F));
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         cards.Controls.Add(CreateStatCard("Today's Appointments", _appointmentsValueLabel, Color.FromArgb(70, 50, 126, 210)), 0, 0);
         cards.Controls.Add(CreateStatCard("Customers", _customersValueLabel, Color.FromArgb(70, 20, 150, 170)), 1, 0);
@@ -362,6 +421,11 @@ public class SecretaryDashboardForm : Form
         cards.Controls.Add(CreateStatCard("Customers", _customersValueLabel, Color.FromArgb(20, 150, 170)), 1, 0);
         cards.Controls.Add(CreateStatCard("Animals / Pets", _animalsValueLabel, Color.FromArgb(63, 176, 112)), 2, 0);
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+        cards.Controls.Add(CreateStatCard("Today's Appointments", _appointmentsValueLabel, Color.FromArgb(70, 50, 126, 210)), 0, 0);
+        cards.Controls.Add(CreateStatCard("Customers", _customersValueLabel, Color.FromArgb(70, 20, 150, 170)), 1, 0);
+        cards.Controls.Add(CreateStatCard("Animals / Pets", _animalsValueLabel, Color.FromArgb(70, 63, 176, 112)), 2, 0);
+>>>>>>> main
         return cards;
     }
 

@@ -44,6 +44,7 @@ public class VeterinarianDashboardForm : Form
             ColumnCount = 2,
             RowCount = 2,
 <<<<<<< HEAD
+<<<<<<< HEAD
             BackColor = Color.FromArgb(245, 248, 251),
             BackgroundImage = Image.FromFile(UiTheme.ImagePasth + "bg.jpg")
         };
@@ -53,6 +54,12 @@ public class VeterinarianDashboardForm : Form
         };
         shell.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 236));
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            BackColor = Color.FromArgb(245, 248, 251),
+            BackgroundImage = Image.FromFile(UiTheme.ImagePasth + "bg.jpg")
+        };
+        shell.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300));
+>>>>>>> main
         shell.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         shell.RowStyles.Add(new RowStyle(SizeType.Absolute, 76));
         shell.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
@@ -74,10 +81,14 @@ public class VeterinarianDashboardForm : Form
         {
             Dock = DockStyle.Fill,
 <<<<<<< HEAD
+<<<<<<< HEAD
             BackColor = Color.FromArgb(70, 245, 248, 251),
 =======
             BackColor = Color.White,
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            BackColor = Color.FromArgb(70, 245, 248, 251),
+>>>>>>> main
             Padding = new Padding(18)
         };
 
@@ -93,6 +104,7 @@ public class VeterinarianDashboardForm : Form
         sidebar.Controls.Add(layout);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         PictureBox brand = new()
         {
             Dock = DockStyle.Fill,
@@ -102,13 +114,22 @@ public class VeterinarianDashboardForm : Form
             Image = Image.FromFile(UiTheme.ImagePasth + "logo.png")
 =======
         Label brand = new()
+=======
+        PictureBox brand = new()
+>>>>>>> main
         {
-            Text = "ClinicVets",
             Dock = DockStyle.Fill,
+<<<<<<< HEAD
             Font = new Font("Segoe UI", 20F, FontStyle.Bold),
             ForeColor = Color.FromArgb(20, 84, 132),
             TextAlign = ContentAlignment.MiddleLeft
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            SizeMode = PictureBoxSizeMode.StretchImage,
+
+
+            Image = Image.FromFile(UiTheme.ImagePasth + "logo.png")
+>>>>>>> main
         };
         layout.Controls.Add(brand, 0, 0);
 

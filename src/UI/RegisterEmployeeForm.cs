@@ -27,6 +27,7 @@ public class RegisterEmployeeForm : Form
         MinimumSize = new Size(980, 760);
         StartPosition = FormStartPosition.CenterParent;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         BackgroundImage = Image.FromFile(UiTheme.ImagePasth+"bg2.jpg");
  
@@ -34,6 +35,11 @@ public class RegisterEmployeeForm : Form
         Paint += (_, e) => UiTheme.PaintGradientBackground(this, e);
 
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+
+        BackgroundImage = Image.FromFile(UiTheme.ImagePasth+"bg2.jpg");
+ 
+>>>>>>> main
         TableLayoutPanel shell = new()
         {
             Dock = DockStyle.Fill,
@@ -52,10 +58,14 @@ public class RegisterEmployeeForm : Form
             Height = 740,
             Anchor = AnchorStyles.None,
 <<<<<<< HEAD
+<<<<<<< HEAD
             BackColor = UiTheme.Semitransparent,
 =======
             BackColor = UiTheme.Card,
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            BackColor = UiTheme.Semitransparent,
+>>>>>>> main
             BorderColor = UiTheme.Border,
             BorderSize = 1,
             CornerRadius = 18,
@@ -101,14 +111,20 @@ public class RegisterEmployeeForm : Form
         _identityTextBox = CreateTextBox("9 digits");
         _roleComboBox = CreateRoleComboBox();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
         _usernameTextBox.Name = "employeeUsernameTextBox";
         _passwordTextBox.Name = "employeePasswordTextBox";
         _employeeNumberTextBox.Name = "employeeNumberTextBox";
         _emailTextBox.Name = "employeeEmailTextBox";
         _identityTextBox.Name = "employeeIdentityTextBox";
         _roleComboBox.Name = "employeeRoleComboBox";
+<<<<<<< HEAD
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+>>>>>>> main
 
         fieldsGrid.Controls.Add(CreateFieldBlock("Username", "6-8 chars, max 2 digits", _usernameTextBox), 0, 0);
         fieldsGrid.Controls.Add(CreateFieldBlock("Password", "8-10 chars, letter, digit, !/#/$", _passwordTextBox), 1, 0);
@@ -120,9 +136,13 @@ public class RegisterEmployeeForm : Form
         _statusLabel = new Label
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             Name = "employeeRegistrationStatusLabel",
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            Name = "employeeRegistrationStatusLabel",
+>>>>>>> main
             Dock = DockStyle.Fill,
             ForeColor = UiTheme.Muted,
             Text = "All fields are validated before saving.",
@@ -146,9 +166,13 @@ public class RegisterEmployeeForm : Form
 
         Button cancelButton = UiTheme.CreateSecondaryButton("Cancel", 0, 0, 220, 48);
 <<<<<<< HEAD
+<<<<<<< HEAD
         cancelButton.Name = "cancelEmployeeRegistrationButton";
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+        cancelButton.Name = "cancelEmployeeRegistrationButton";
+>>>>>>> main
         cancelButton.Dock = DockStyle.Fill;
         cancelButton.Margin = new Padding(0, 0, 14, 0);
         cancelButton.Click += (_, _) => Close();
@@ -156,9 +180,13 @@ public class RegisterEmployeeForm : Form
 
         Button registerButton = UiTheme.CreatePrimaryButton("Register Employee", 0, 0, 380, 48);
 <<<<<<< HEAD
+<<<<<<< HEAD
         registerButton.Name = "submitEmployeeRegistrationButton";
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+        registerButton.Name = "submitEmployeeRegistrationButton";
+>>>>>>> main
         registerButton.Dock = DockStyle.Fill;
         registerButton.Margin = new Padding(14, 0, 0, 0);
         registerButton.Click += (_, _) => RegisterEmployee();
@@ -191,9 +219,13 @@ public class RegisterEmployeeForm : Form
 
         Button backButton = UiTheme.CreateSecondaryButton("Back to Login", 0, 0, 160, 38);
 <<<<<<< HEAD
+<<<<<<< HEAD
         backButton.Name = "backToLoginButton";
 =======
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+        backButton.Name = "backToLoginButton";
+>>>>>>> main
         backButton.Dock = DockStyle.Fill;
         backButton.Margin = new Padding(0, 6, 0, 6);
         backButton.Click += (_, _) => Close();

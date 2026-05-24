@@ -3,6 +3,7 @@
 This file describes what has been implemented so far in the `ClinicVets` project.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## My Assignment Scope
 
 The current student assignment part focuses mainly on:
@@ -18,13 +19,25 @@ The project also includes animal, medicine, visit, and dashboard modules. These 
 
 =======
 ## Current Assignment Part
+=======
+## My Assignment Scope
+>>>>>>> main
 
-The current student assignment part focuses on:
+The current student assignment part focuses mainly on:
 
-1. Login and employee registration for clinic staff.
+1. Employee login and employee registration.
 2. Customer management for animal owners, allowed only for secretary users.
 
+<<<<<<< HEAD
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Customer management is secretary-only. Veterinarian users must not register customers, search customers, or manage customer information.
+
+## Other Existing Modules
+
+The project also includes animal, medicine, visit, and dashboard modules. These are broader project features and are separate from the main assignment responsibility.
+
+>>>>>>> main
 ## Implemented So Far
 
 - C# WinForms application.
@@ -36,6 +49,7 @@ The current student assignment part focuses on:
 - Employee validation and registration logic.
 - Customer validation, service logic, search, and WinForms screen.
 <<<<<<< HEAD
+<<<<<<< HEAD
 - Secretary-only permission rules for customer registration, search, and linked-animal display.
 - SQLite database setup for clinic entities.
 - Seeded roles: `Veterinarian` and `Secretary`.
@@ -46,6 +60,12 @@ The current student assignment part focuses on:
 - Seeded roles: `Veterinarian` and `Secretary`.
 - Employee passwords are stored as entered for the current course implementation.
 >>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+- Secretary-only permission rules for customer registration, search, and linked-animal display.
+- SQLite database setup for clinic entities.
+- Seeded roles: `Veterinarian` and `Secretary`.
+- Employee passwords are stored as entered for the current course implementation and compared during login.
+>>>>>>> main
 - Israeli ID format validation: exactly 9 numeric digits.
 - xUnit test project with validation and service-level tests.
 
