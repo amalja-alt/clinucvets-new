@@ -2,9 +2,6 @@ using ClinicVets.Services;
 
 namespace ClinicVets.Validators;
 
-/// <summary>
-/// Validates visit and treatment input.
-/// </summary>
 public class VisitValidator
 {
     public OperationResult<bool> ValidateVisit(int animalId, string reason)

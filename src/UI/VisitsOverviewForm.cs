@@ -3,9 +3,6 @@ using ClinicVets.Services;
 
 namespace ClinicVets.UI;
 
-/// <summary>
-/// Read-only SQLite-backed visits overview for the secretary dashboard.
-/// </summary>
 public class VisitsOverviewForm : Form
 {
     private readonly ClinicAppServices _services;

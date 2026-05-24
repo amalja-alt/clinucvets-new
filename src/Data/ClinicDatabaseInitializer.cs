@@ -1,22 +1,16 @@
 using Microsoft.Data.Sqlite;
-using ClinicVets.Services;
-using ClinicVets.Validators;
-
 namespace ClinicVets.Data;
-
-/// <summary>
-/// Creates the SQLite schema and required seed data for ClinicVets.
-/// </summary>
+// in this class we init the database  ( sql )
+// add a defult data to the structure 
+// so wwe can work with it to the demo and the tests
 public class ClinicDatabaseInitializer(string connectionString)
 {
-    /// <summary>
-    /// Creates required tables and seeds fixed lookup data.
-    /// </summary>
+    // the function :
+    // this is the intilization function 
     public void Initialize()
     {
         using SqliteConnection connection = new(connectionString);
         connection.Open();
-
         EnableForeignKeys(connection);
         CreateRolesTable(connection);
         CreateEmployeesTable(connection);
@@ -26,19 +20,20 @@ public class ClinicDatabaseInitializer(string connectionString)
         CreateMedicinesTable(connection);
         CreateVisitsTable(connection);
         CreateVisitMedicinesTable(connection);
+
         SeedRoles(connection);
-        RemoveUnsupportedRoles(connection);
         SeedAnimalCategories(connection);
-        SeedOrUpdateDemoData(connection);
     }
 
+    // to make a connection with the sql tables and create the tables if they not exist
     private static void EnableForeignKeys(SqliteConnection connection)
     {
         using SqliteCommand command = connection.CreateCommand();
         command.CommandText = "PRAGMA foreign_keys = ON;";
         command.ExecuteNonQuery();
     }
-
+    // make the roles table with the fields : id and name
+    // id for the role and the name secretary or veterinarian
     private static void CreateRolesTable(SqliteConnection connection)
     {
         using SqliteCommand command = connection.CreateCommand();
@@ -51,7 +46,9 @@ public class ClinicDatabaseInitializer(string connectionString)
             """;
         command.ExecuteNonQuery();
     }
-
+    // create the worker (employee) table 
+    // with the details that we need to log in 
+    // name , password , employee number , email , identity number and the role ( here we save the id that connect to the role table) 
     private static void CreateEmployeesTable(SqliteConnection connection)
     {
         using SqliteCommand command = connection.CreateCommand();
@@ -71,6 +68,8 @@ public class ClinicDatabaseInitializer(string connectionString)
         command.ExecuteNonQuery();
     }
 
+    // create the costomer table with the details that we need to save about the customer
+    // name , identity number , phone and email
     private static void CreateCustomersTable(SqliteConnection connection)
     {
         using SqliteCommand command = connection.CreateCommand();
@@ -87,6 +86,9 @@ public class ClinicDatabaseInitializer(string connectionString)
         command.ExecuteNonQuery();
     }
 
+    // create the animal category table with the details that we need to save about the category
+    // name of the category ( dog , cat , bird and reptile) 
+    // the is is for the connection with the animal table 
     private static void CreateAnimalCategoriesTable(SqliteConnection connection)
     {
         using SqliteCommand command = connection.CreateCommand();
@@ -100,6 +102,10 @@ public class ClinicDatabaseInitializer(string connectionString)
         command.ExecuteNonQuery();
     }
 
+    // create the animal table with the details that we need to save about the animal
+    // name , chip number , category id ( connection with the category table) , weight , birth date , 
+    // last vaccination date and the owner costomer id ( connection with the costomer table)
+    // here we have a connection with the animal category table and the costomer table
     private static void CreateAnimalsTable(SqliteConnection connection)
     {
         using SqliteCommand command = connection.CreateCommand();
@@ -121,6 +127,8 @@ public class ClinicDatabaseInitializer(string connectionString)
         command.ExecuteNonQuery();
     }
 
+    // create the medicine table with the details that we need to save about the medicine
+    // name , price and quantity in stock
     private static void CreateMedicinesTable(SqliteConnection connection)
     {
         using SqliteCommand command = connection.CreateCommand();
@@ -136,6 +144,9 @@ public class ClinicDatabaseInitializer(string connectionString)
         command.ExecuteNonQuery();
     }
 
+    // create the visit table with the details that we need to save about the visit
+    // animal id ( connection with the animal table) , veterinarian employee id , visit date and time , 
+    // reason for the visit , diagnosis and the base price for the visit
     private static void CreateVisitsTable(SqliteConnection connection)
     {
         using SqliteCommand command = connection.CreateCommand();
@@ -175,21 +186,14 @@ public class ClinicDatabaseInitializer(string connectionString)
         command.ExecuteNonQuery();
     }
 
+    // make the roles table we have just 2 roles of the worker 
     private static void SeedRoles(SqliteConnection connection)
     {
-        InsertRoleIfMissing(connection, "Veterinarian");
-        InsertRoleIfMissing(connection, "Secretary");
+        insertroles(connection, "Veterinarian");
+        insertroles(connection, "Secretary");
     }
 
-    private static void SeedAnimalCategories(SqliteConnection connection)
-    {
-        InsertAnimalCategoryIfMissing(connection, "Dog");
-        InsertAnimalCategoryIfMissing(connection, "Cat");
-        InsertAnimalCategoryIfMissing(connection, "Reptile");
-        InsertAnimalCategoryIfMissing(connection, "Bird");
-    }
-
-    private static void InsertRoleIfMissing(SqliteConnection connection, string roleName)
+    private static void insertroles(SqliteConnection connection, string roleName)
     {
         using SqliteCommand command = connection.CreateCommand();
         command.CommandText =
@@ -201,39 +205,18 @@ public class ClinicDatabaseInitializer(string connectionString)
         command.ExecuteNonQuery();
     }
 
-    private static void RemoveUnsupportedRoles(SqliteConnection connection)
+    // make the animal category table we have just 4 categories for the animals
+    private static void SeedAnimalCategories(SqliteConnection connection)
     {
-        using SqliteTransaction transaction = connection.BeginTransaction();
-        int secretaryRoleId = GetRoleId(connection, transaction, "Secretary");
-
-        using SqliteCommand updateEmployeesCommand = connection.CreateCommand();
-        updateEmployeesCommand.Transaction = transaction;
-        updateEmployeesCommand.CommandText =
-            """
-            UPDATE Employees
-            SET RoleId = $secretaryRoleId
-            WHERE RoleId IN (
-                SELECT Id
-                FROM Roles
-                WHERE Name NOT IN ('Veterinarian', 'Secretary')
-            );
-            """;
-        updateEmployeesCommand.Parameters.AddWithValue("$secretaryRoleId", secretaryRoleId);
-        updateEmployeesCommand.ExecuteNonQuery();
-
-        using SqliteCommand deleteRolesCommand = connection.CreateCommand();
-        deleteRolesCommand.Transaction = transaction;
-        deleteRolesCommand.CommandText =
-            """
-            DELETE FROM Roles
-            WHERE Name NOT IN ('Veterinarian', 'Secretary');
-            """;
-        deleteRolesCommand.ExecuteNonQuery();
-
-        transaction.Commit();
+        InsertAnimalC(connection, "Dog");
+        InsertAnimalC(connection, "Cat");
+        InsertAnimalC(connection, "Reptile");
+        InsertAnimalC(connection, "Bird");
     }
-
-    private static void InsertAnimalCategoryIfMissing(SqliteConnection connection, string categoryName)
+    // private function to add the category to the category table if it not exist
+    // we have a 4 categories for the animals : dog , cat , reptile and bird - from the assignmnet 
+    // we cant delete this function 
+    private static void InsertAnimalC(SqliteConnection connection, string categoryName)
     {
         using SqliteCommand command = connection.CreateCommand();
         command.CommandText =
@@ -243,290 +226,5 @@ public class ClinicDatabaseInitializer(string connectionString)
             """;
         command.Parameters.AddWithValue("$name", categoryName);
         command.ExecuteNonQuery();
-    }
-
-    private static void SeedOrUpdateDemoData(SqliteConnection connection)
-    {
-        using SqliteTransaction transaction = connection.BeginTransaction();
-
-        int secretaryRoleId = GetRoleId(connection, transaction, "Secretary");
-        int veterinarianRoleId = GetRoleId(connection, transaction, "Veterinarian");
-
-        int secretaryId = UpsertDemoEmployee(connection, transaction, "secret1", "Secret#1", "9002", "secretary@clinicvets.com", "100000009", secretaryRoleId);
-        int veterinarianId = UpsertDemoEmployee(connection, transaction, "vetuser", "Vetuser#1", "9003", "vet@clinicvets.com", "100000017", veterinarianRoleId);
-
-        int customer1Id = InsertCustomerIfMissing(connection, transaction, "Dana Levi", "123456782", "0501234567", "dana.levi@example.com");
-        int customer2Id = InsertCustomerIfMissing(connection, transaction, "Noam Cohen", "234567899", "0527654321", "noam.cohen@example.com");
-        int customer3Id = InsertCustomerIfMissing(connection, transaction, "Maya Amir", "345678916", "0541112233", "maya.amir@example.com");
-
-        int dogCategoryId = GetCategoryId(connection, transaction, "Dog");
-        int catCategoryId = GetCategoryId(connection, transaction, "Cat");
-        int birdCategoryId = GetCategoryId(connection, transaction, "Bird");
-
-        int dogId = InsertAnimalIfMissing(connection, transaction, "Buddy", "DOG-1001", dogCategoryId, 18.5, "2021-04-12", "2025-03-20", customer1Id);
-        int catId = InsertAnimalIfMissing(connection, transaction, "Luna", "CAT-2001", catCategoryId, 4.3, "2022-08-05", "2024-02-15", customer2Id);
-        int birdId = InsertAnimalIfMissing(connection, transaction, "Kiwi", "BRD-3001", birdCategoryId, 0.4, "2023-11-10", "2025-05-01", customer3Id);
-
-        int vaccineId = InsertMedicineIfMissing(connection, transaction, "Annual Vaccine", 120.00, 25);
-        int antibioticId = InsertMedicineIfMissing(connection, transaction, "Antibiotic Drops", 85.50, 18);
-        InsertMedicineIfMissing(connection, transaction, "Pain Relief Tablets", 64.90, 30);
-
-        int visit1Id = InsertVisitIfMissing(connection, transaction, dogId, veterinarianId, "2026-05-01T10:30:00.0000000", "Annual checkup", "Healthy dog, vaccine administered", 150.00);
-        int visit2Id = InsertVisitIfMissing(connection, transaction, catId, veterinarianId, "2026-05-05T14:15:00.0000000", "Eye irritation", "Mild infection, drops prescribed", 150.00);
-        int todayVisit1Id = InsertVisitIfMissing(connection, transaction, dogId, veterinarianId, DateTime.Today.AddHours(9).ToString("O"), "Annual wellness visit", "Scheduled checkup", 150.00);
-        int todayVisit2Id = InsertVisitIfMissing(connection, transaction, catId, veterinarianId, DateTime.Today.AddHours(11).AddMinutes(30).ToString("O"), "Vaccination follow-up", "Awaiting veterinarian review", 150.00);
-        InsertVisitIfMissing(connection, transaction, birdId, veterinarianId, DateTime.Today.AddHours(14).ToString("O"), "Nutrition consultation", "Scheduled consultation", 150.00);
-
-        InsertVisitMedicineIfMissing(connection, transaction, visit1Id, vaccineId, 1, 120.00);
-        InsertVisitMedicineIfMissing(connection, transaction, visit2Id, antibioticId, 1, 85.50);
-        InsertVisitMedicineIfMissing(connection, transaction, todayVisit1Id, vaccineId, 1, 120.00);
-        InsertVisitMedicineIfMissing(connection, transaction, todayVisit2Id, antibioticId, 1, 85.50);
-
-        _ = secretaryId;
-
-        transaction.Commit();
-    }
-
-    private static int GetRoleId(SqliteConnection connection, SqliteTransaction transaction, string roleName)
-    {
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText = "SELECT Id FROM Roles WHERE Name = $name;";
-        command.Parameters.AddWithValue("$name", roleName);
-        return Convert.ToInt32(command.ExecuteScalar());
-    }
-
-    private static int GetCategoryId(SqliteConnection connection, SqliteTransaction transaction, string categoryName)
-    {
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText = "SELECT Id FROM AnimalCategories WHERE Name = $name;";
-        command.Parameters.AddWithValue("$name", categoryName);
-        return Convert.ToInt32(command.ExecuteScalar());
-    }
-
-    private static int UpsertDemoEmployee(SqliteConnection connection, SqliteTransaction transaction, string username, string password, string employeeNumber, string email, string identityNumber, int roleId)
-    {
-        OperationResult<bool> validation = new EmployeeValidator().ValidateRegistration(
-            username,
-            password,
-            employeeNumber,
-            email,
-            identityNumber);
-
-        if (!validation.IsSuccess)
-        {
-            throw new InvalidOperationException($"Demo employee '{username}' is invalid: {validation.ErrorMessage}");
-        }
-
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText =
-            """
-            INSERT INTO Employees (Username, PasswordHash, EmployeeNumber, Email, IdentityNumber, RoleId)
-            VALUES ($username, $passwordHash, $employeeNumber, $email, $identityNumber, $roleId)
-            ON CONFLICT(Username) DO UPDATE SET
-                PasswordHash = excluded.PasswordHash,
-                EmployeeNumber = excluded.EmployeeNumber,
-                Email = excluded.Email,
-                IdentityNumber = excluded.IdentityNumber,
-                RoleId = excluded.RoleId;
-            """;
-        command.Parameters.AddWithValue("$username", username);
-        command.Parameters.AddWithValue("$passwordHash", password);
-        command.Parameters.AddWithValue("$employeeNumber", employeeNumber);
-        command.Parameters.AddWithValue("$email", email);
-        command.Parameters.AddWithValue("$identityNumber", identityNumber);
-        command.Parameters.AddWithValue("$roleId", roleId);
-        command.ExecuteNonQuery();
-
-        return GetEmployeeIdByUsername(connection, transaction, username);
-    }
-
-    private static int InsertCustomerIfMissing(SqliteConnection connection, SqliteTransaction transaction, string fullName, string identityNumber, string phone, string email)
-    {
-        int? existingId = GetCustomerIdByIdentityOrEmail(connection, transaction, identityNumber, email);
-        if (existingId is not null)
-        {
-            return existingId.Value;
-        }
-
-        return InsertCustomer(connection, transaction, fullName, identityNumber, phone, email);
-    }
-
-    private static int? GetCustomerIdByIdentityOrEmail(SqliteConnection connection, SqliteTransaction transaction, string identityNumber, string email)
-    {
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText =
-            """
-            SELECT Id
-            FROM Customers
-            WHERE IdentityNumber = $identityNumber OR Email = $email
-            LIMIT 1;
-            """;
-        command.Parameters.AddWithValue("$identityNumber", identityNumber);
-        command.Parameters.AddWithValue("$email", email);
-
-        object? id = command.ExecuteScalar();
-        return id is null ? null : Convert.ToInt32(id);
-    }
-
-    private static int InsertCustomer(SqliteConnection connection, SqliteTransaction transaction, string fullName, string identityNumber, string phone, string email)
-    {
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText =
-            """
-            INSERT INTO Customers (FullName, IdentityNumber, Phone, Email)
-            VALUES ($fullName, $identityNumber, $phone, $email);
-
-            SELECT last_insert_rowid();
-            """;
-        command.Parameters.AddWithValue("$fullName", fullName);
-        command.Parameters.AddWithValue("$identityNumber", identityNumber);
-        command.Parameters.AddWithValue("$phone", phone);
-        command.Parameters.AddWithValue("$email", email);
-        return Convert.ToInt32(command.ExecuteScalar());
-    }
-
-    private static int InsertAnimalIfMissing(SqliteConnection connection, SqliteTransaction transaction, string name, string chipNumber, int categoryId, double weightKg, string birthDate, string lastVaccinationDate, int ownerCustomerId)
-    {
-        int? existingId = GetIdByTextField(connection, transaction, "Animals", "ChipNumber", chipNumber);
-        if (existingId is not null)
-        {
-            return existingId.Value;
-        }
-
-        return InsertAnimal(connection, transaction, name, chipNumber, categoryId, weightKg, birthDate, lastVaccinationDate, ownerCustomerId);
-    }
-
-    private static int InsertAnimal(SqliteConnection connection, SqliteTransaction transaction, string name, string chipNumber, int categoryId, double weightKg, string birthDate, string lastVaccinationDate, int ownerCustomerId)
-    {
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText =
-            """
-            INSERT INTO Animals (Name, ChipNumber, CategoryId, WeightKg, BirthDate, LastVaccinationDate, OwnerCustomerId)
-            VALUES ($name, $chipNumber, $categoryId, $weightKg, $birthDate, $lastVaccinationDate, $ownerCustomerId);
-
-            SELECT last_insert_rowid();
-            """;
-        command.Parameters.AddWithValue("$name", name);
-        command.Parameters.AddWithValue("$chipNumber", chipNumber);
-        command.Parameters.AddWithValue("$categoryId", categoryId);
-        command.Parameters.AddWithValue("$weightKg", weightKg);
-        command.Parameters.AddWithValue("$birthDate", birthDate);
-        command.Parameters.AddWithValue("$lastVaccinationDate", lastVaccinationDate);
-        command.Parameters.AddWithValue("$ownerCustomerId", ownerCustomerId);
-        return Convert.ToInt32(command.ExecuteScalar());
-    }
-
-    private static int InsertMedicineIfMissing(SqliteConnection connection, SqliteTransaction transaction, string name, double price, int quantityInStock)
-    {
-        int? existingId = GetIdByTextField(connection, transaction, "Medicines", "Name", name);
-        if (existingId is not null)
-        {
-            return existingId.Value;
-        }
-
-        return InsertMedicine(connection, transaction, name, price, quantityInStock);
-    }
-
-    private static int InsertMedicine(SqliteConnection connection, SqliteTransaction transaction, string name, double price, int quantityInStock)
-    {
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText =
-            """
-            INSERT INTO Medicines (Name, Price, QuantityInStock)
-            VALUES ($name, $price, $quantityInStock);
-
-            SELECT last_insert_rowid();
-            """;
-        command.Parameters.AddWithValue("$name", name);
-        command.Parameters.AddWithValue("$price", price);
-        command.Parameters.AddWithValue("$quantityInStock", quantityInStock);
-        return Convert.ToInt32(command.ExecuteScalar());
-    }
-
-    private static int InsertVisitIfMissing(SqliteConnection connection, SqliteTransaction transaction, int animalId, int veterinarianId, string visitDateTime, string reason, string diagnosis, double baseVisitPrice)
-    {
-        using SqliteCommand existingCommand = connection.CreateCommand();
-        existingCommand.Transaction = transaction;
-        existingCommand.CommandText =
-            """
-            SELECT Id
-            FROM Visits
-            WHERE AnimalId = $animalId
-              AND VisitDateTime = $visitDateTime
-            LIMIT 1;
-            """;
-        existingCommand.Parameters.AddWithValue("$animalId", animalId);
-        existingCommand.Parameters.AddWithValue("$visitDateTime", visitDateTime);
-
-        object? existingId = existingCommand.ExecuteScalar();
-        if (existingId is not null)
-        {
-            return Convert.ToInt32(existingId);
-        }
-
-        return InsertVisit(connection, transaction, animalId, veterinarianId, visitDateTime, reason, diagnosis, baseVisitPrice);
-    }
-
-    private static int InsertVisit(SqliteConnection connection, SqliteTransaction transaction, int animalId, int veterinarianId, string visitDateTime, string reason, string diagnosis, double baseVisitPrice)
-    {
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText =
-            """
-            INSERT INTO Visits (AnimalId, VeterinarianEmployeeId, VisitDateTime, Reason, Diagnosis, BaseVisitPrice)
-            VALUES ($animalId, $veterinarianId, $visitDateTime, $reason, $diagnosis, $baseVisitPrice);
-
-            SELECT last_insert_rowid();
-            """;
-        command.Parameters.AddWithValue("$animalId", animalId);
-        command.Parameters.AddWithValue("$veterinarianId", veterinarianId);
-        command.Parameters.AddWithValue("$visitDateTime", visitDateTime);
-        command.Parameters.AddWithValue("$reason", reason);
-        command.Parameters.AddWithValue("$diagnosis", diagnosis);
-        command.Parameters.AddWithValue("$baseVisitPrice", baseVisitPrice);
-        return Convert.ToInt32(command.ExecuteScalar());
-    }
-
-    private static void InsertVisitMedicineIfMissing(SqliteConnection connection, SqliteTransaction transaction, int visitId, int medicineId, int quantity, double unitPrice)
-    {
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText =
-            """
-            INSERT OR IGNORE INTO VisitMedicines (VisitId, MedicineId, Quantity, UnitPrice)
-            VALUES ($visitId, $medicineId, $quantity, $unitPrice);
-            """;
-        command.Parameters.AddWithValue("$visitId", visitId);
-        command.Parameters.AddWithValue("$medicineId", medicineId);
-        command.Parameters.AddWithValue("$quantity", quantity);
-        command.Parameters.AddWithValue("$unitPrice", unitPrice);
-        command.ExecuteNonQuery();
-    }
-
-    private static int GetEmployeeIdByUsername(SqliteConnection connection, SqliteTransaction transaction, string username)
-    {
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText = "SELECT Id FROM Employees WHERE Username = $username;";
-        command.Parameters.AddWithValue("$username", username);
-        return Convert.ToInt32(command.ExecuteScalar());
-    }
-
-    private static int? GetIdByTextField(SqliteConnection connection, SqliteTransaction transaction, string tableName, string fieldName, string value)
-    {
-        using SqliteCommand command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText = $"SELECT Id FROM {tableName} WHERE {fieldName} = $value LIMIT 1;";
-        command.Parameters.AddWithValue("$value", value);
-
-        object? id = command.ExecuteScalar();
-        return id is null ? null : Convert.ToInt32(id);
     }
 }

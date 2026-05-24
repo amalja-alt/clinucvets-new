@@ -1,11 +1,18 @@
 using ClinicVets.Models;
-using ClinicVets.Repositories;
 using ClinicVets.Validators;
+using ClinicVets.Repositories.interfacesrepo;
+
 
 namespace ClinicVets.Services;
-
+// this class take a repo interface and a validator as dependencies
 public class EmployeeService(IEmployeeRepository employeeRepository, EmployeeValidator employeeValidator)
 {
+    // what this class provide :
+    // operation result is a object that countain the info about the function if its success or not and the error message if its not success
+
+
+
+    // 1- Checks whether registration fields are valid.
     public OperationResult<bool> ValidateRegistrationInput(
         string username,
         string password,
@@ -16,6 +23,8 @@ public class EmployeeService(IEmployeeRepository employeeRepository, EmployeeVal
         return employeeValidator.ValidateRegistration(username, password, employeeNumber, email, identityNumber);
     }
 
+
+    // the main regestration methos 
     public OperationResult<Employee> RegisterEmployee(
         string username,
         string password,

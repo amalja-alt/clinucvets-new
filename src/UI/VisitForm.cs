@@ -3,9 +3,6 @@ using ClinicVets.Services;
 
 namespace ClinicVets.UI;
 
-/// <summary>
-/// Records a clinic visit with diagnosis, medicines, and pricing.
-/// </summary>
 public class VisitForm : Form
 {
     private readonly ClinicAppServices _services;

@@ -3,9 +3,6 @@ using ClinicVets.Services;
 
 namespace ClinicVets.UI;
 
-/// <summary>
-/// Registers a new clinic employee with validation.
-/// </summary>
 public class RegisterEmployeeForm : Form
 {
     private readonly ClinicAppServices _services;

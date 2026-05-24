@@ -2,7 +2,6 @@ using ClinicVets.Models;
 using ClinicVets.Services;
 using ClinicVets.Tests.TestSupport;
 using ClinicVets.Validators;
-
 namespace ClinicVets.Tests.FunctionalTests;
 
 public class AuthServiceFunctionalTests

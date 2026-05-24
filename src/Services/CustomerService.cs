@@ -1,5 +1,5 @@
 using ClinicVets.Models;
-using ClinicVets.Repositories;
+using ClinicVets.Repositories.interfacesrepo;
 using ClinicVets.Validators;
 using Microsoft.Data.Sqlite;
 
@@ -17,17 +17,20 @@ public class CustomerService(
         string phone,
         string email)
     {
+        // check the permission of the user to manage customers, only secretaries can manage customers
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<Customer>.Failure(ValidationMessages.SecretaryOnly);
         }
 
+        // the user is secretary
         OperationResult<bool> validationResult = customerValidator.ValidateCustomer(
             fullName,
             identityNumber,
             phone,
             email);
 
+        // check the input of the custemer, if its not valid return the error message
         if (!validationResult.IsSuccess)
         {
             return OperationResult<Customer>.Failure(validationResult.ErrorMessage);
@@ -35,6 +38,7 @@ public class CustomerService(
 
         try
         {
+            // check if there is already a customer with the same identity number, if yes return an error message
             if (customerRepository.ExistsByIdentityNumber(identityNumber))
             {
                 return OperationResult<Customer>.Failure(ValidationMessages.DuplicateCustomer);
@@ -57,13 +61,16 @@ public class CustomerService(
         }
     }
 
+    // return the customer if we have a customer with the same identity number or phone number 
     public OperationResult<Customer?> SearchByIdentityOrPhone(Employee? currentUser, string searchText)
     {
+        // check the permission of the user to manage customers, only secretaries can manage customers
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<Customer?>.Failure(ValidationMessages.CustomerManagementSecretaryOnly);
         }
 
+        // the user is secretary, search for the customer by identity number or phone number
         try
         {
             string normalizedSearchText = NormalizeSearchText(searchText);
@@ -75,8 +82,12 @@ public class CustomerService(
         }
     }
 
+    // return the customer if we have a customer with the same id in the table
+
     public OperationResult<IReadOnlyList<Animal>> GetCustomerAnimals(Employee? currentUser, int customerId)
     {
+        // check the permission of the user to manage customers, only secretaries can manage customers
+        // this is for a specific use case where we want to show the animals of a customer 
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<IReadOnlyList<Animal>>.Failure(ValidationMessages.CustomerManagementSecretaryOnly);
@@ -85,8 +96,10 @@ public class CustomerService(
         return OperationResult<IReadOnlyList<Animal>>.Success(animalRepository.FindByOwnerCustomerId(customerId));
     }
 
+    // private function to keep just the secretary can manage customers, this is for code readability 
     private static bool CanManageCustomers(Employee? currentUser) => currentUser?.Role == StaffRole.Secretary;
 
+    // private function to normalize the search text by trimming it and removing non-digit characters
     private static string NormalizeSearchText(string searchText)
     {
         string trimmed = searchText.Trim();

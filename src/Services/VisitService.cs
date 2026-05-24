@@ -1,6 +1,6 @@
 using ClinicVets.Models;
-using ClinicVets.Repositories;
 using ClinicVets.Validators;
+using ClinicVets.Repositories.interfacesrepo;
 
 namespace ClinicVets.Services;
 

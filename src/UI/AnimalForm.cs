@@ -3,9 +3,6 @@ using ClinicVets.Services;
 
 namespace ClinicVets.UI;
 
-/// <summary>
-/// Add, edit, search, and view animal patient records.
-/// </summary>
 public class AnimalForm : Form
 {
     private readonly ClinicAppServices _services;
