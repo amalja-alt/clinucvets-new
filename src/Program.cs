@@ -25,7 +25,15 @@ internal static class Program
         MedicineValidator medicineValidator = new();
         VisitValidator visitValidator = new();
 
+<<<<<<< HEAD
+<<<<<<< HEAD
         IEmployeeRepository employeeRepository = new EmployeeRepository(DatabaseSettings.ConnectionString);
+=======
+        IEmployeeRepository employeeRepository = new SqliteEmployeeRepository(DatabaseSettings.ConnectionString);
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+        IEmployeeRepository employeeRepository = new EmployeeRepository(DatabaseSettings.ConnectionString);
+>>>>>>> main
         ICustomerRepository customerRepository = new CustomerRepository(DatabaseSettings.ConnectionString);
         IAnimalRepository animalRepository = new AnimalRepository(DatabaseSettings.ConnectionString);
         IAnimalCategoryRepository animalCategoryRepository = new AnimalCategoryRepository(DatabaseSettings.ConnectionString);

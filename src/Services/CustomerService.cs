@@ -38,7 +38,6 @@ public class CustomerService(
 
         try
         {
-            // check if there is already a customer with the same identity number, if yes return an error message
             if (customerRepository.ExistsByIdentityNumber(identityNumber))
             {
                 return OperationResult<Customer>.Failure(ValidationMessages.DuplicateCustomer);
@@ -59,6 +58,35 @@ public class CustomerService(
         {
             return OperationResult<Customer>.Failure(ValidationMessages.DatabaseBusy);
         }
+        {
+            // check if there is already a customer with the same identity number, if yes return an error message
+            if (customerRepository.ExistsByIdentityNumber(identityNumber))
+            {
+                return OperationResult<Customer>.Failure(ValidationMessages.DuplicateCustomer);
+            }
+
+            Customer customer = new()
+            {
+                FullName = fullName,
+                IdentityNumber = identityNumber,
+                Phone = phone,
+                Email = email
+            };
+
+            Customer savedCustomer = customerRepository.Add(customer);
+            return OperationResult<Customer>.Success(savedCustomer);
+        }
+        catch (SqliteException exception) when (exception.SqliteErrorCode == 5)
+        {
+
+            FullName = fullName,
+            IdentityNumber = identityNumber,
+            Phone = phone,
+            Email = email
+        };
+
+        Customer savedCustomer = customerRepository.Add(customer);
+        return OperationResult<Customer>.Success(savedCustomer);
     }
 
     // return the customer if we have a customer with the same identity number or phone number 
