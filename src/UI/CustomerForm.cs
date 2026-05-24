@@ -105,17 +105,33 @@ public class CustomerForm : Form
         _identityTextBox = CreateDockTextBox(isSecretary);
         _phoneTextBox = CreateDockTextBox(isSecretary);
         _emailTextBox = CreateDockTextBox(isSecretary);
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
         _fullNameTextBox.Name = "customerFullNameTextBox";
         _identityTextBox.Name = "customerIdentityTextBox";
         _phoneTextBox.Name = "customerPhoneTextBox";
         _emailTextBox.Name = "customerEmailTextBox";
+<<<<<<< HEAD
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+>>>>>>> main
         addLayout.Controls.Add(_fullNameTextBox, 0, 2);
         addLayout.Controls.Add(_identityTextBox, 1, 2);
         addLayout.Controls.Add(_phoneTextBox, 2, 2);
         addLayout.Controls.Add(_emailTextBox, 3, 2);
 
         _addButton = UiTheme.CreatePrimaryButton("Add Customer", 0, 0, 170, 42);
+<<<<<<< HEAD
+<<<<<<< HEAD
         _addButton.Name = "addCustomerButton";
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+        _addButton.Name = "addCustomerButton";
+>>>>>>> main
         _addButton.Enabled = isSecretary;
         _addButton.Anchor = AnchorStyles.Left | AnchorStyles.Top;
         _addButton.Margin = new Padding(0, 12, 0, 0);
@@ -166,12 +182,26 @@ public class CustomerForm : Form
         searchLayout.SetColumnSpan(searchTitle, 2);
 
         _searchTextBox = CreateDockTextBox(true);
+<<<<<<< HEAD
+<<<<<<< HEAD
         _searchTextBox.Name = "customerSearchTextBox";
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+        _searchTextBox.Name = "customerSearchTextBox";
+>>>>>>> main
         _searchTextBox.PlaceholderText = "Search by ID or phone";
         searchLayout.Controls.Add(_searchTextBox, 0, 1);
 
         Button searchButton = UiTheme.CreateSecondaryButton("Search", 0, 0, 120, 38);
+<<<<<<< HEAD
+<<<<<<< HEAD
         searchButton.Name = "searchCustomerButton";
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+        searchButton.Name = "searchCustomerButton";
+>>>>>>> main
         searchButton.Anchor = AnchorStyles.Left;
         searchButton.Margin = new Padding(12, 6, 0, 6);
         searchButton.Click += (_, _) => SearchCustomer();
@@ -179,7 +209,14 @@ public class CustomerForm : Form
 
         _detailsTextBox = new TextBox
         {
+<<<<<<< HEAD
+<<<<<<< HEAD
             Name = "customerDetailsTextBox",
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            Name = "customerDetailsTextBox",
+>>>>>>> main
             Dock = DockStyle.Fill,
             Margin = new Padding(0, 8, 12, 0),
             Multiline = true,
@@ -191,7 +228,14 @@ public class CustomerForm : Form
 
         _animalsList = new ListBox
         {
+<<<<<<< HEAD
+<<<<<<< HEAD
             Name = "customerAnimalsListBox",
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            Name = "customerAnimalsListBox",
+>>>>>>> main
             Dock = DockStyle.Fill,
             Margin = new Padding(12, 8, 0, 0),
             IntegralHeight = false
@@ -206,13 +250,27 @@ public class CustomerForm : Form
         root.Controls.Add(buttons, 0, 3);
 
         Button backButton = UiTheme.CreateSecondaryButton("Back to Dashboard", 0, 0, 170, 42);
+<<<<<<< HEAD
+<<<<<<< HEAD
         backButton.Name = "backToDashboardButton";
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+        backButton.Name = "backToDashboardButton";
+>>>>>>> main
         backButton.Click += (_, _) => Close();
         buttons.Controls.Add(backButton);
 
         _statusLabel = new Label
         {
+<<<<<<< HEAD
+<<<<<<< HEAD
             Name = "customerStatusLabel",
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+            Name = "customerStatusLabel",
+>>>>>>> main
             Dock = DockStyle.Left,
             Width = 650,
             ForeColor = UiTheme.Muted,

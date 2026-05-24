@@ -1,10 +1,15 @@
 # ClinicVets Full Project Implementation Guide
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 This document explains the current ClinicVets implementation for developers, testers, and reviewers. It clearly separates the course assignment responsibility from broader existing project modules.
 
 ## My Assignment Scope
 
 The implementation/testing responsibility for this course assignment is mainly:
+<<<<<<< HEAD
 
 1. employee login and employee registration,
 2. secretary-only customer management for animal owners.
@@ -16,6 +21,26 @@ Customer management includes registering customers, searching by Israeli ID or p
 ## Other Existing Modules
 
 The codebase also contains animal, animal-category, medicine, visit, dashboard, and lookup modules. These are part of the broader ClinicVets application. They should not be treated as the main assignment scope, except where linked animals are displayed from the customer-management flow.
+=======
+This document explains the current ClinicVets implementation for developers, testers, and reviewers. It focuses on the actual codebase, with special attention to the Software Testing course requirements and the assignment scope:
+=======
+>>>>>>> main
+
+1. employee login and employee registration,
+2. secretary-only customer management for animal owners.
+
+<<<<<<< HEAD
+The document intentionally avoids describing features that are not implemented.
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Employee login and registration includes SQLite-backed login, authentication flow, employee registration, username validation, password validation, employee ID validation, email validation, Israeli ID validation, and role selection for `Secretary` or `Veterinarian`. Passwords are stored as entered for the current course implementation.
+
+Customer management includes registering customers, searching by Israeli ID or phone number, and displaying animals linked to a customer. Customer management is restricted to `Secretary` users. `Veterinarian` users must not register, search, or manage customer information.
+
+## Other Existing Modules
+
+The codebase also contains animal, animal-category, medicine, visit, dashboard, and lookup modules. These are part of the broader ClinicVets application. They should not be treated as the main assignment scope, except where linked animals are displayed from the customer-management flow.
+>>>>>>> main
 
 ## 1. Project Overview
 
@@ -51,19 +76,38 @@ The roles are defined in `src/Models/StaffRole.cs`.
 
 ### Secretary
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 Main assignment capabilities for secretary:
+=======
+Implemented secretary capabilities:
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Main assignment capabilities for secretary:
+>>>>>>> main
 
 - log in through `LoginForm`,
 - open `SecretaryDashboardForm`,
 - register customers through `CustomerForm`,
 - search customers by Israeli ID or phone,
 - view customer details,
+<<<<<<< HEAD
+<<<<<<< HEAD
 - view animals linked to a customer.
+=======
+- view animals linked to a customer,
+- access pets/animals and appointments/visits screens from the secretary dashboard.
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+- view animals linked to a customer.
+>>>>>>> main
 
 Customer-management write and search operations are enforced in `CustomerService`, not only in the UI.
 
 ### Veterinarian
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 Assignment-relevant veterinarian behavior:
 
 - log in through `LoginForm`,
@@ -73,6 +117,24 @@ Assignment-relevant veterinarian behavior:
 - cannot manage customer information through `CustomerService`.
 
 Other patient, visit, treatment, and medicine screens are broader existing modules.
+=======
+Implemented veterinarian capabilities:
+=======
+Assignment-relevant veterinarian behavior:
+>>>>>>> main
+
+- log in through `LoginForm`,
+- open `VeterinarianDashboardForm`,
+- cannot register customers,
+- cannot search customers,
+- cannot manage customer information through `CustomerService`.
+
+<<<<<<< HEAD
+`VisitService.OpenVisit` requires the current user role to be `Veterinarian`.
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Other patient, visit, treatment, and medicine screens are broader existing modules.
+>>>>>>> main
 
 ## 3. High-Level Architecture
 
@@ -239,7 +301,15 @@ Flow:
 4. If validation fails, `AuthenticationResult.Failure` is returned to the form.
 5. If validation passes, `AuthService` calls `IEmployeeRepository.FindByUsername`.
 6. `SqliteEmployeeRepository` reads the employee from SQLite by username.
+<<<<<<< HEAD
+<<<<<<< HEAD
 7. `AuthService` compares the entered password with the saved database password value.
+=======
+7. `AuthService` compares the entered password with the saved employee password value.
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+7. `AuthService` compares the entered password with the saved database password value.
+>>>>>>> main
 8. If the employee does not exist or the password is wrong, login fails with `ValidationMessages.WrongCredentials`.
 9. If login succeeds, `AuthService.CurrentUser` is set.
 10. `LoginForm` opens:
@@ -274,7 +344,15 @@ Flow:
 6. If validation fails, an `OperationResult<Employee>.Failure` is returned with a clear validation message.
 7. If validation passes, `EmployeeService` calls `IEmployeeRepository.ExistsByRegistrationFields`.
 8. If a duplicate username, employee number, email, or identity number exists, registration fails.
+<<<<<<< HEAD
+<<<<<<< HEAD
 9. If no duplicate exists, `EmployeeService` stores the entered password value on the employee model.
+=======
+9. If no duplicate exists, `EmployeeService` stores the password value on the employee model.
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+9. If no duplicate exists, `EmployeeService` stores the entered password value on the employee model.
+>>>>>>> main
 10. `EmployeeService` creates an `Employee` model.
 11. `SqliteEmployeeRepository.Add` inserts the employee into SQLite.
 12. The saved employee is returned to the form.
@@ -459,9 +537,21 @@ The UI may show hints, but validators are the source of truth.
 
 ### Password Storage
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 Employee passwords are stored as entered for the current course implementation.
 
 The SQLite column is named `PasswordHash` because that is the existing schema name, but the current stored value is the entered password text.
+=======
+For the current course implementation, employee passwords are saved as entered and login compares the entered value with the saved value.
+
+Important implementation note: the SQLite column is still named `PasswordHash` because that is the existing schema column, but the current stored value is not hashed.
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Employee passwords are stored as entered for the current course implementation.
+
+The SQLite column is named `PasswordHash` because that is the existing schema name, but the current stored value is the entered password text.
+>>>>>>> main
 
 ### Authentication
 
@@ -471,7 +561,15 @@ Authentication is handled by `AuthService`.
 
 1. validates username/password input,
 2. loads the employee by username,
+<<<<<<< HEAD
+<<<<<<< HEAD
 3. compares the entered password with the saved database value,
+=======
+3. compares the entered password with the saved password value,
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+3. compares the entered password with the saved database value,
+>>>>>>> main
 4. stores the logged-in employee in `CurrentUser`.
 
 ### Authorization
@@ -525,6 +623,10 @@ Implemented pattern:
 
 This avoids scattering many independent windows during normal dashboard navigation and keeps the workflow centered in one dashboard window after login.
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 For the assignment, dashboard navigation matters mainly because:
 
 - secretary users can reach `CustomerForm`,
@@ -532,6 +634,11 @@ For the assignment, dashboard navigation matters mainly because:
 
 Other dashboard sections are broader application modules.
 
+<<<<<<< HEAD
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+>>>>>>> main
 Current examples:
 
 - `SecretaryDashboardForm.OpenEmbeddedForm`
@@ -547,16 +654,35 @@ The UI uses WinForms layout containers to improve maintainability and scaling:
 - `Dock` and `Anchor` properties for resizing behavior,
 - centralized styling through `UiTheme`.
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 Assignment forms with notable layout work:
+=======
+Forms with notable layout work:
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Assignment forms with notable layout work:
+>>>>>>> main
 
 - `LoginForm`: centered login card and role-based dashboard transition.
 - `RegisterEmployeeForm`: structured registration form with field hints.
 - `CustomerForm`: customer add/search/details/animals layout.
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 
 Other existing forms:
 
 - `SecretaryDashboardForm`: broader sidebar navigation and embedded content.
 - `VeterinarianDashboardForm`: broader patient sections and visit-related actions.
+<<<<<<< HEAD
+=======
+- `SecretaryDashboardForm`: sidebar navigation and embedded content.
+- `VeterinarianDashboardForm`: sidebar navigation, patient sections, visit-related actions.
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+>>>>>>> main
 
 Important note: some veterinarian dashboard action cards are visual workflow placeholders where no action is wired yet. The documentation and tests do not treat those as completed service features.
 
@@ -636,6 +762,8 @@ Purpose:
 
 - verify role-based access rules.
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 Assignment-focused examples:
 
 - secretary can register/search customers,
@@ -643,6 +771,23 @@ Assignment-focused examples:
 - veterinarian cannot search customers,
 - veterinarian cannot view linked customer animals through customer management,
 - null user cannot perform restricted customer actions.
+=======
+Examples:
+
+- secretary can register/search customers,
+- veterinarian cannot register customers,
+- null user cannot perform restricted customer actions,
+- veterinarian can open visits when data is valid.
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Assignment-focused examples:
+
+- secretary can register/search customers,
+- veterinarian cannot register customers,
+- veterinarian cannot search customers,
+- veterinarian cannot view linked customer animals through customer management,
+- null user cannot perform restricted customer actions.
+>>>>>>> main
 
 ### FunctionalTests
 
@@ -674,12 +819,30 @@ Purpose:
 
 - verify that core flows still work after changes.
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 Assignment-focused covered flows:
+=======
+Covered flows:
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+Assignment-focused covered flows:
+>>>>>>> main
 
 - login,
 - employee registration validation,
 - customer registration,
+<<<<<<< HEAD
+<<<<<<< HEAD
 - customer search.
+=======
+- customer search,
+- animal registration service,
+- visit service.
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+- customer search.
+>>>>>>> main
 
 ### DecisionTableTests
 
@@ -987,14 +1150,34 @@ These result objects act as test oracles and make behavior easier to inspect.
 | Employee registration UI | `src/UI/RegisterEmployeeForm.cs` |
 | Customer management UI | `src/UI/CustomerForm.cs` |
 | Secretary dashboard | `src/UI/SecretaryDashboardForm.cs` |
+<<<<<<< HEAD
+<<<<<<< HEAD
 | Veterinarian dashboard, broader module | `src/UI/VeterinarianDashboardForm.cs` |
+=======
+| Veterinarian dashboard | `src/UI/VeterinarianDashboardForm.cs` |
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+| Veterinarian dashboard, broader module | `src/UI/VeterinarianDashboardForm.cs` |
+>>>>>>> main
 | UI styling | `src/UI/UiTheme.cs` |
 | Authentication service | `src/Services/AuthService.cs` |
 | Employee service | `src/Services/EmployeeService.cs` |
 | Customer service | `src/Services/CustomerService.cs` |
+<<<<<<< HEAD
+<<<<<<< HEAD
 | Animal service, broader module | `src/Services/AnimalService.cs` |
 | Visit service, broader module | `src/Services/VisitService.cs` |
 | Login password comparison | `src/Services/AuthService.cs` |
+=======
+| Animal service | `src/Services/AnimalService.cs` |
+| Visit service | `src/Services/VisitService.cs` |
+| Password comparison | `src/Services/AuthService.cs` |
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
+=======
+| Animal service, broader module | `src/Services/AnimalService.cs` |
+| Visit service, broader module | `src/Services/VisitService.cs` |
+| Login password comparison | `src/Services/AuthService.cs` |
+>>>>>>> main
 | Validation messages | `src/Services/ValidationMessages.cs` |
 | Shared service container | `src/Services/ClinicAppServices.cs` |
 | Low-level validation rules | `src/Validators/ValidationRules.cs` |
