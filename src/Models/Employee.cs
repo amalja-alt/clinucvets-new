@@ -1,9 +1,11 @@
 namespace ClinicVets.Models;
 
 // alaa 
-// employee - worker in the clinic 
+// this class represents an employee of the clinic
+// employee == worker 
 public class Employee
 {
+
     public int Id { get; init; }
     public string Username { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;

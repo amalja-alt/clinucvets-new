@@ -3,6 +3,8 @@ using ClinicVets.Repositories;
 using ClinicVets.Validators;
 
 namespace ClinicVets.Services;
+// alaa 
+// here we have a delagator pattern to delegate the work to the repository and the validator
 
 public class CustomerService(
     ICustomerRepository customerRepository,
@@ -16,7 +18,6 @@ public class CustomerService(
         string phone,
         string email)
     {
-        // Assignment requirement: customer management is restricted to secretaries.
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<Customer>.Failure(ValidationMessages.SecretaryOnly);
@@ -52,7 +53,6 @@ public class CustomerService(
 
     public OperationResult<Customer?> SearchByIdentityOrPhone(Employee? currentUser, string searchText)
     {
-        // Defense in depth: searches are authorized in the service, not only in the UI.
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<Customer?>.Failure(ValidationMessages.CustomerManagementSecretaryOnly);
@@ -64,7 +64,6 @@ public class CustomerService(
 
     public OperationResult<IReadOnlyList<Animal>> GetCustomerAnimals(Employee? currentUser, int customerId)
     {
-        // Defense in depth: linked animal viewing is part of customer management.
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<IReadOnlyList<Animal>>.Failure(ValidationMessages.CustomerManagementSecretaryOnly);
