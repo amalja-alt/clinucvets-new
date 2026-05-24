@@ -26,8 +26,9 @@ public class RegisterEmployeeForm : Form
         ClientSize = new Size(1280, 820);
         MinimumSize = new Size(980, 760);
         StartPosition = FormStartPosition.CenterParent;
-        Paint += (_, e) => UiTheme.PaintGradientBackground(this, e);
 
+        BackgroundImage = Image.FromFile(UiTheme.ImagePasth+"bg2.jpg");
+ 
         TableLayoutPanel shell = new()
         {
             Dock = DockStyle.Fill,
@@ -45,7 +46,7 @@ public class RegisterEmployeeForm : Form
             Width = 960,
             Height = 740,
             Anchor = AnchorStyles.None,
-            BackColor = UiTheme.Card,
+            BackColor = UiTheme.Semitransparent,
             BorderColor = UiTheme.Border,
             BorderSize = 1,
             CornerRadius = 18,
@@ -90,6 +91,12 @@ public class RegisterEmployeeForm : Form
         _emailTextBox = CreateTextBox("employee@clinicvets.com");
         _identityTextBox = CreateTextBox("9 digits");
         _roleComboBox = CreateRoleComboBox();
+        _usernameTextBox.Name = "employeeUsernameTextBox";
+        _passwordTextBox.Name = "employeePasswordTextBox";
+        _employeeNumberTextBox.Name = "employeeNumberTextBox";
+        _emailTextBox.Name = "employeeEmailTextBox";
+        _identityTextBox.Name = "employeeIdentityTextBox";
+        _roleComboBox.Name = "employeeRoleComboBox";
 
         fieldsGrid.Controls.Add(CreateFieldBlock("Username", "6-8 chars, max 2 digits", _usernameTextBox), 0, 0);
         fieldsGrid.Controls.Add(CreateFieldBlock("Password", "8-10 chars, letter, digit, !/#/$", _passwordTextBox), 1, 0);
@@ -100,6 +107,7 @@ public class RegisterEmployeeForm : Form
 
         _statusLabel = new Label
         {
+            Name = "employeeRegistrationStatusLabel",
             Dock = DockStyle.Fill,
             ForeColor = UiTheme.Muted,
             Text = "All fields are validated before saving.",
@@ -122,12 +130,14 @@ public class RegisterEmployeeForm : Form
         layout.Controls.Add(buttons, 0, 4);
 
         Button cancelButton = UiTheme.CreateSecondaryButton("Cancel", 0, 0, 220, 48);
+        cancelButton.Name = "cancelEmployeeRegistrationButton";
         cancelButton.Dock = DockStyle.Fill;
         cancelButton.Margin = new Padding(0, 0, 14, 0);
         cancelButton.Click += (_, _) => Close();
         buttons.Controls.Add(cancelButton, 0, 0);
 
         Button registerButton = UiTheme.CreatePrimaryButton("Register Employee", 0, 0, 380, 48);
+        registerButton.Name = "submitEmployeeRegistrationButton";
         registerButton.Dock = DockStyle.Fill;
         registerButton.Margin = new Padding(14, 0, 0, 0);
         registerButton.Click += (_, _) => RegisterEmployee();
@@ -159,6 +169,7 @@ public class RegisterEmployeeForm : Form
         topBar.Controls.Add(brand, 0, 0);
 
         Button backButton = UiTheme.CreateSecondaryButton("Back to Login", 0, 0, 160, 38);
+        backButton.Name = "backToLoginButton";
         backButton.Dock = DockStyle.Fill;
         backButton.Margin = new Padding(0, 6, 0, 6);
         backButton.Click += (_, _) => Close();
@@ -292,7 +303,12 @@ public class RegisterEmployeeForm : Form
 
         _statusLabel.ForeColor = UiTheme.Success;
         _statusLabel.Text = $"Employee {result.Value!.Username} registered successfully.";
-        DialogResult = DialogResult.OK;
-        Close();
+
+        _usernameTextBox.Clear();
+        _passwordTextBox.Clear();
+        _employeeNumberTextBox.Clear();
+        _emailTextBox.Clear();
+        _identityTextBox.Clear();
+        _roleComboBox.SelectedIndex = 1;
     }
 }

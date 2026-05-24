@@ -1,10 +1,9 @@
 using ClinicVets.Models;
 using ClinicVets.Repositories;
 using ClinicVets.Validators;
+using Microsoft.Data.Sqlite;
 
 namespace ClinicVets.Services;
-// alaa 
-// here we have a delagator pattern to delegate the work to the repository and the validator
 
 public class CustomerService(
     ICustomerRepository customerRepository,
@@ -34,21 +33,28 @@ public class CustomerService(
             return OperationResult<Customer>.Failure(validationResult.ErrorMessage);
         }
 
-        if (customerRepository.ExistsByIdentityNumber(identityNumber))
+        try
         {
-            return OperationResult<Customer>.Failure(ValidationMessages.DuplicateCustomer);
+            if (customerRepository.ExistsByIdentityNumber(identityNumber))
+            {
+                return OperationResult<Customer>.Failure(ValidationMessages.DuplicateCustomer);
+            }
+
+            Customer customer = new()
+            {
+                FullName = fullName,
+                IdentityNumber = identityNumber,
+                Phone = phone,
+                Email = email
+            };
+
+            Customer savedCustomer = customerRepository.Add(customer);
+            return OperationResult<Customer>.Success(savedCustomer);
         }
-
-        Customer customer = new()
+        catch (SqliteException exception) when (exception.SqliteErrorCode == 5)
         {
-            FullName = fullName,
-            IdentityNumber = identityNumber,
-            Phone = phone,
-            Email = email
-        };
-
-        Customer savedCustomer = customerRepository.Add(customer);
-        return OperationResult<Customer>.Success(savedCustomer);
+            return OperationResult<Customer>.Failure(ValidationMessages.DatabaseBusy);
+        }
     }
 
     public OperationResult<Customer?> SearchByIdentityOrPhone(Employee? currentUser, string searchText)
@@ -58,8 +64,15 @@ public class CustomerService(
             return OperationResult<Customer?>.Failure(ValidationMessages.CustomerManagementSecretaryOnly);
         }
 
-        string normalizedSearchText = NormalizeSearchText(searchText);
-        return OperationResult<Customer?>.Success(customerRepository.FindByIdentityOrPhone(normalizedSearchText));
+        try
+        {
+            string normalizedSearchText = NormalizeSearchText(searchText);
+            return OperationResult<Customer?>.Success(customerRepository.FindByIdentityOrPhone(normalizedSearchText));
+        }
+        catch (SqliteException exception) when (exception.SqliteErrorCode == 5)
+        {
+            return OperationResult<Customer?>.Failure(ValidationMessages.DatabaseBusy);
+        }
     }
 
     public OperationResult<IReadOnlyList<Animal>> GetCustomerAnimals(Employee? currentUser, int customerId)

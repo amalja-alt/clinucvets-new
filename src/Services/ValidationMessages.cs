@@ -18,6 +18,7 @@ public static class ValidationMessages
     public const string InvalidFullName = "Full name must contain letters only.";
     public const string InvalidPhone = "Invalid phone number format.";
     public const string DuplicateCustomer = "Customer identity number already exists.";
+    public const string DatabaseBusy = "The database is busy. Close other running copies of the app and try again.";
 
     public const string InvalidAnimalName = "Animal name must contain letters only.";
     public const string InvalidAnimalWeight = "Animal weight must be between 0.1 and 100 kg.";

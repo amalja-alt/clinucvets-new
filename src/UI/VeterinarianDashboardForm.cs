@@ -43,9 +43,10 @@ public class VeterinarianDashboardForm : Form
             Dock = DockStyle.Fill,
             ColumnCount = 2,
             RowCount = 2,
-            BackColor = Color.FromArgb(245, 248, 251)
+            BackColor = Color.FromArgb(245, 248, 251),
+            BackgroundImage = Image.FromFile(UiTheme.ImagePasth + "bg.jpg")
         };
-        shell.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 236));
+        shell.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300));
         shell.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         shell.RowStyles.Add(new RowStyle(SizeType.Absolute, 76));
         shell.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
@@ -66,7 +67,7 @@ public class VeterinarianDashboardForm : Form
         Panel sidebar = new()
         {
             Dock = DockStyle.Fill,
-            BackColor = Color.White,
+            BackColor = Color.FromArgb(70, 245, 248, 251),
             Padding = new Padding(18)
         };
 
@@ -81,13 +82,13 @@ public class VeterinarianDashboardForm : Form
         layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 74));
         sidebar.Controls.Add(layout);
 
-        Label brand = new()
+        PictureBox brand = new()
         {
-            Text = "ClinicVets",
             Dock = DockStyle.Fill,
-            Font = new Font("Segoe UI", 20F, FontStyle.Bold),
-            ForeColor = Color.FromArgb(20, 84, 132),
-            TextAlign = ContentAlignment.MiddleLeft
+            SizeMode = PictureBoxSizeMode.StretchImage,
+
+
+            Image = Image.FromFile(UiTheme.ImagePasth + "logo.png")
         };
         layout.Controls.Add(brand, 0, 0);
 
