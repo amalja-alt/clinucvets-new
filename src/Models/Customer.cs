@@ -1,6 +1,6 @@
 namespace ClinicVets.Models;
 
-// alaa - the sercatery can add a customer to the system
+// alaa - id is the id of the customer( from thr system ) 
 public class Customer
 {
     public int Id { get; init; }

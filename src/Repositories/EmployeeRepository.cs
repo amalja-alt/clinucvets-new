@@ -2,8 +2,9 @@ using ClinicVets.Models;
 using Microsoft.Data.Sqlite;
 
 namespace ClinicVets.Repositories;
-
-public class SqliteEmployeeRepository(string connectionString) : IEmployeeRepository
+// alaa 
+// implimintation of the IEmployeeRepository interface using SQLite as the data store
+public class EmployeeRepository(string connectionString) : IEmployeeRepository
 {
     public Employee? FindByUsername(string username)
     {

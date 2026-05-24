@@ -105,12 +105,17 @@ public class CustomerForm : Form
         _identityTextBox = CreateDockTextBox(isSecretary);
         _phoneTextBox = CreateDockTextBox(isSecretary);
         _emailTextBox = CreateDockTextBox(isSecretary);
+        _fullNameTextBox.Name = "customerFullNameTextBox";
+        _identityTextBox.Name = "customerIdentityTextBox";
+        _phoneTextBox.Name = "customerPhoneTextBox";
+        _emailTextBox.Name = "customerEmailTextBox";
         addLayout.Controls.Add(_fullNameTextBox, 0, 2);
         addLayout.Controls.Add(_identityTextBox, 1, 2);
         addLayout.Controls.Add(_phoneTextBox, 2, 2);
         addLayout.Controls.Add(_emailTextBox, 3, 2);
 
         _addButton = UiTheme.CreatePrimaryButton("Add Customer", 0, 0, 170, 42);
+        _addButton.Name = "addCustomerButton";
         _addButton.Enabled = isSecretary;
         _addButton.Anchor = AnchorStyles.Left | AnchorStyles.Top;
         _addButton.Margin = new Padding(0, 12, 0, 0);
@@ -161,10 +166,12 @@ public class CustomerForm : Form
         searchLayout.SetColumnSpan(searchTitle, 2);
 
         _searchTextBox = CreateDockTextBox(true);
+        _searchTextBox.Name = "customerSearchTextBox";
         _searchTextBox.PlaceholderText = "Search by ID or phone";
         searchLayout.Controls.Add(_searchTextBox, 0, 1);
 
         Button searchButton = UiTheme.CreateSecondaryButton("Search", 0, 0, 120, 38);
+        searchButton.Name = "searchCustomerButton";
         searchButton.Anchor = AnchorStyles.Left;
         searchButton.Margin = new Padding(12, 6, 0, 6);
         searchButton.Click += (_, _) => SearchCustomer();
@@ -172,6 +179,7 @@ public class CustomerForm : Form
 
         _detailsTextBox = new TextBox
         {
+            Name = "customerDetailsTextBox",
             Dock = DockStyle.Fill,
             Margin = new Padding(0, 8, 12, 0),
             Multiline = true,
@@ -183,6 +191,7 @@ public class CustomerForm : Form
 
         _animalsList = new ListBox
         {
+            Name = "customerAnimalsListBox",
             Dock = DockStyle.Fill,
             Margin = new Padding(12, 8, 0, 0),
             IntegralHeight = false
@@ -197,11 +206,13 @@ public class CustomerForm : Form
         root.Controls.Add(buttons, 0, 3);
 
         Button backButton = UiTheme.CreateSecondaryButton("Back to Dashboard", 0, 0, 170, 42);
+        backButton.Name = "backToDashboardButton";
         backButton.Click += (_, _) => Close();
         buttons.Controls.Add(backButton);
 
         _statusLabel = new Label
         {
+            Name = "customerStatusLabel",
             Dock = DockStyle.Left,
             Width = 650,
             ForeColor = UiTheme.Muted,

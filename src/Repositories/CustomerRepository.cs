@@ -3,6 +3,13 @@ using Microsoft.Data.Sqlite;
 
 namespace ClinicVets.Repositories;
 
+
+// alaa 
+// this class between the ui and the data access layer ( in memory or database )
+// interface because we can have multiple implementations   
+// implimintation of the ICustomerRepository interface using SQLite as the data store
+
+
 public class CustomerRepository(string connectionString) : ICustomerRepository
 {
     public bool ExistsByIdentityNumber(string identityNumber)

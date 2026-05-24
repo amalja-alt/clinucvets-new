@@ -24,7 +24,7 @@ public class AnimalCategoryForm : Form
         Panel card = UiTheme.CreateCard(24, 24, 472, 372);
         card.Anchor = AnchorStyles.Top | AnchorStyles.Left;
         Controls.Add(card);
-
+ 
         card.Controls.Add(UiTheme.CreateTitle("Animal Categories", 24, 20, 400));
         card.Controls.Add(UiTheme.CreateFieldLabel("Available categories", 24, 72));
 

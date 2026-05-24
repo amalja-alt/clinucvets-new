@@ -9,7 +9,7 @@ public static class DatabaseSettings
         get
         {
             string databasePath = Path.Combine(AppContext.BaseDirectory, DatabaseFileName);
-            return $"Data Source={databasePath}";
+            return $"Data Source={databasePath};Default Timeout=10;Pooling=False";
         }
     }
 }
