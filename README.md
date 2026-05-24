@@ -2,6 +2,7 @@
 
 GUI-based veterinary clinic management system developed in C# WinForms for the Software Testing course project.
 
+<<<<<<< HEAD
 ## My Assignment Scope
 
 This course assignment focuses mainly on two workflows:
@@ -17,12 +18,18 @@ Customer scope includes registering customers, searching customers by Israeli ID
 
 The codebase also contains animal, medicine, visit, dashboard, and lookup modules. These support the broader application, but they are not the main implementation/testing responsibility for this assignment.
 
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
 ## Project Structure
 
 ```text
 src/
   Data/          SQLite schema creation and seed data.
+<<<<<<< HEAD
   Models/        Domain models. Assignment focus: Employee and Customer.
+=======
+  Models/        Domain models: Employee, Customer, Animal, Visit, Medicine.
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
   Repositories/  Repository interfaces and implementations.
   Services/      Business logic, permissions, authentication, and workflows.
   Validators/    Testable validation classes split by module.

@@ -8,9 +8,12 @@ namespace ClinicVets.UI;
 /// </summary>
 internal static class UiTheme
 {
+<<<<<<< HEAD
     public static string ImagePasth = FindImagesDirectory();
 
     public static readonly Color Semitransparent = Color.FromArgb(40, 255, 255, 255);
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
     public static readonly Color BackgroundTop = Color.FromArgb(248, 251, 255);
     public static readonly Color BackgroundBottom = Color.FromArgb(239, 250, 244);
     public static readonly Color Background = Color.FromArgb(247, 250, 252);
@@ -40,6 +43,7 @@ internal static class UiTheme
         form.AutoScaleMode = AutoScaleMode.Dpi;
         form.AutoScroll = true;
         form.Font = BodyFont;
+<<<<<<< HEAD
         form.ForeColor = Text;
         form.StartPosition = FormStartPosition.CenterScreen;
         EnableDoubleBuffering(form);
@@ -81,6 +85,11 @@ internal static class UiTheme
         }
 
         return null;
+=======
+        form.BackColor = Background;
+        form.ForeColor = Text;
+        form.StartPosition = FormStartPosition.CenterScreen;
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
     }
 
     public static RoundedPanel CreateCard(int x, int y, int width, int height, int radius = 18) =>
@@ -91,9 +100,13 @@ internal static class UiTheme
             BackColor = Card,
             BorderColor = Border,
             BorderSize = 1,
+<<<<<<< HEAD
             CornerRadius = radius,
             BackgroundImage = Image.FromFile(UiTheme.ImagePasth + "bg.jpg")
 
+=======
+            CornerRadius = radius
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
         };
 
     public static Label CreateTitle(string text, int x, int y, int width) =>
@@ -127,6 +140,7 @@ internal static class UiTheme
             BorderStyle = BorderStyle.FixedSingle,
             ForeColor = InputText,
             PlaceholderText = placeholder,
+<<<<<<< HEAD
             UseSystemPasswordChar = password,
         };
    
@@ -134,6 +148,10 @@ internal static class UiTheme
 
 
 
+=======
+            UseSystemPasswordChar = password
+        };
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
 
     public static ComboBox CreateComboBox(int x, int y, int width) =>
         new()
@@ -320,7 +338,10 @@ internal sealed class RoundedButton : Button
         path.CloseFigure();
         return path;
     }
+<<<<<<< HEAD
 
      
     
+=======
+>>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
 }
