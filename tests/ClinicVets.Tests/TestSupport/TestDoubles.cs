@@ -85,15 +85,15 @@ internal sealed class FakeAnimalRepository : IAnimalRepository
     private readonly List<Animal> _animals = [];
     private int _nextId = 1;
 
-    public void Seed(Animal animal)
+    public bool ExistsById(int animalId)
     {
-        _animals.Add(animal);
-        _nextId = Math.Max(_nextId, animal.Id + 1);
+        return _animals.Any(animal => animal.Id == animalId);
     }
 
-    public bool ExistsById(int animalId) => _animals.Any(animal => animal.Id == animalId);
-
-    public bool ExistsByChipNumber(string chipNumber) => _animals.Any(animal => animal.ChipNumber == chipNumber);
+    public bool ExistsByChipNumber(string chipNumber)
+    {
+        return _animals.Any(animal => animal.ChipNumber == chipNumber);
+    }
 
     public Animal Add(Animal animal)
     {
@@ -102,7 +102,6 @@ internal sealed class FakeAnimalRepository : IAnimalRepository
             Id = _nextId++,
             Name = animal.Name,
             ChipNumber = animal.ChipNumber,
-            CategoryId = animal.CategoryId,
             Type = animal.Type,
             WeightKg = animal.WeightKg,
             BirthDate = animal.BirthDate,
@@ -121,68 +120,11 @@ internal sealed class FakeAnimalRepository : IAnimalRepository
     public IReadOnlyList<Animal> SearchByNameOrChip(string searchText)
     {
         return _animals
-            .Where(animal => animal.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase) || animal.ChipNumber == searchText)
+            .Where(animal =>
+                string.IsNullOrWhiteSpace(searchText) ||
+                animal.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
+                animal.ChipNumber.Contains(searchText, StringComparison.OrdinalIgnoreCase))
             .ToList();
-    }
-}
-
-internal sealed class FakeVisitRepository : IVisitRepository
-{
-    private int _nextId = 1;
-
-    public Visit Add(Visit visit)
-    {
-        Visit saved = new()
-        {
-            Id = _nextId++,
-            AnimalId = visit.AnimalId,
-            VeterinarianId = visit.VeterinarianId,
-            VisitDateTime = visit.VisitDateTime,
-            Reason = visit.Reason,
-            Diagnosis = visit.Diagnosis,
-            BaseVisitPrice = visit.BaseVisitPrice
-        };
-        saved.MedicinesGiven.AddRange(visit.MedicinesGiven);
-        return saved;
-    }
-}
-
-internal sealed class FakeMedicineRepository : IMedicineRepository
-{
-    private readonly List<Medicine> _medicines = [];
-    private int _nextId = 1;
-
-    public void Seed(Medicine medicine)
-    {
-        _medicines.Add(medicine);
-        _nextId = Math.Max(_nextId, medicine.Id + 1);
-    }
-
-    public IReadOnlyList<Medicine> GetAll() => _medicines.ToList();
-
-    public IReadOnlyList<Medicine> FindByIds(IEnumerable<int> medicineIds)
-    {
-        HashSet<int> ids = medicineIds.ToHashSet();
-        return _medicines.Where(medicine => ids.Contains(medicine.Id)).ToList();
-    }
-
-    public Medicine Add(Medicine medicine)
-    {
-        Medicine saved = new()
-        {
-            Id = _nextId++,
-            Name = medicine.Name,
-            Price = medicine.Price,
-            QuantityInStock = medicine.QuantityInStock
-        };
-        _medicines.Add(saved);
-        return saved;
-    }
-
-    public bool Remove(int medicineId)
-    {
-        Medicine? medicine = _medicines.SingleOrDefault(item => item.Id == medicineId);
-        return medicine is not null && _medicines.Remove(medicine);
     }
 }
 
