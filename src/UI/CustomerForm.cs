@@ -3,9 +3,6 @@ using ClinicVets.Services;
 
 namespace ClinicVets.UI;
 
-/// <summary>
-/// Customer registration, search, and linked animals display.
-/// </summary>
 public class CustomerForm : Form
 {
     private readonly ClinicAppServices _services;

@@ -3,9 +3,6 @@ using ClinicVets.Services;
 
 namespace ClinicVets.UI;
 
-/// <summary>
-/// GUI login screen for clinic staff members.
-/// </summary>
 public class LoginForm : Form
 {
     private readonly ClinicAppServices _services;

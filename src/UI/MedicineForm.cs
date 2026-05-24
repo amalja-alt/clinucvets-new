@@ -3,9 +3,6 @@ using ClinicVets.Services;
 
 namespace ClinicVets.UI;
 
-/// <summary>
-/// Manages the clinic medicine inventory.
-/// </summary>
 public class MedicineForm : Form
 {
     private readonly ClinicAppServices _services;

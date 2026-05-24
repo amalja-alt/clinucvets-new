@@ -3,9 +3,6 @@ using System.ComponentModel;
 
 namespace ClinicVets.UI;
 
-/// <summary>
-/// Shared visual styling for ClinicVets WinForms screens.
-/// </summary>
 internal static class UiTheme
 {
 <<<<<<< HEAD

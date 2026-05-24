@@ -1,5 +1,6 @@
 namespace ClinicVets.Services;
 
+// a simple wrapper to represent the result of an operation, including success/failure status, value (if successful), and error message (if failed)
 public class OperationResult<T>
 {
     public bool IsSuccess { get; }

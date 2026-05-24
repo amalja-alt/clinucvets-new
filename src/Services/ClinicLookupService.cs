@@ -1,5 +1,5 @@
 using ClinicVets.Models;
-using ClinicVets.Repositories;
+using ClinicVets.Repositories.interfacesrepo;
 
 namespace ClinicVets.Services;
 

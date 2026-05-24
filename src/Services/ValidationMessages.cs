@@ -1,5 +1,6 @@
 namespace ClinicVets.Services;
 
+// error messages for validation failures, to avoid hardcoding strings in multiple places and to ensure consistency across the app
 public static class ValidationMessages
 {
 <<<<<<< HEAD

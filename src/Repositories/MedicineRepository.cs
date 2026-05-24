@@ -1,4 +1,5 @@
 using ClinicVets.Models;
+using ClinicVets.Repositories.interfacesrepo;
 using Microsoft.Data.Sqlite;
 
 namespace ClinicVets.Repositories;

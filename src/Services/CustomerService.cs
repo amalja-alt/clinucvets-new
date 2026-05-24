@@ -1,14 +1,7 @@
 using ClinicVets.Models;
-using ClinicVets.Repositories;
+using ClinicVets.Repositories.interfacesrepo;
 using ClinicVets.Validators;
-<<<<<<< HEAD
-<<<<<<< HEAD
 using Microsoft.Data.Sqlite;
-=======
->>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
-=======
-using Microsoft.Data.Sqlite;
->>>>>>> main
 
 namespace ClinicVets.Services;
 
@@ -24,31 +17,25 @@ public class CustomerService(
         string phone,
         string email)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        // Assignment requirement: customer management is restricted to secretaries.
->>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
-=======
->>>>>>> main
+        // check the permission of the user to manage customers, only secretaries can manage customers
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<Customer>.Failure(ValidationMessages.SecretaryOnly);
         }
 
+        // the user is secretary
         OperationResult<bool> validationResult = customerValidator.ValidateCustomer(
             fullName,
             identityNumber,
             phone,
             email);
 
+        // check the input of the custemer, if its not valid return the error message
         if (!validationResult.IsSuccess)
         {
             return OperationResult<Customer>.Failure(validationResult.ErrorMessage);
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         try
         {
             if (customerRepository.ExistsByIdentityNumber(identityNumber))
@@ -71,12 +58,8 @@ public class CustomerService(
         {
             return OperationResult<Customer>.Failure(ValidationMessages.DatabaseBusy);
         }
-=======
-        if (customerRepository.ExistsByIdentityNumber(identityNumber))
-=======
-        try
->>>>>>> main
         {
+            // check if there is already a customer with the same identity number, if yes return an error message
             if (customerRepository.ExistsByIdentityNumber(identityNumber))
             {
                 return OperationResult<Customer>.Failure(ValidationMessages.DuplicateCustomer);
@@ -95,7 +78,7 @@ public class CustomerService(
         }
         catch (SqliteException exception) when (exception.SqliteErrorCode == 5)
         {
-<<<<<<< HEAD
+
             FullName = fullName,
             IdentityNumber = identityNumber,
             Phone = phone,
@@ -104,31 +87,18 @@ public class CustomerService(
 
         Customer savedCustomer = customerRepository.Add(customer);
         return OperationResult<Customer>.Success(savedCustomer);
->>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
-=======
-            return OperationResult<Customer>.Failure(ValidationMessages.DatabaseBusy);
-        }
->>>>>>> main
     }
 
+    // return the customer if we have a customer with the same identity number or phone number 
     public OperationResult<Customer?> SearchByIdentityOrPhone(Employee? currentUser, string searchText)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        // Defense in depth: searches are authorized in the service, not only in the UI.
->>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
-=======
->>>>>>> main
+        // check the permission of the user to manage customers, only secretaries can manage customers
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<Customer?>.Failure(ValidationMessages.CustomerManagementSecretaryOnly);
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> main
+        // the user is secretary, search for the customer by identity number or phone number
         try
         {
             string normalizedSearchText = NormalizeSearchText(searchText);
@@ -138,23 +108,14 @@ public class CustomerService(
         {
             return OperationResult<Customer?>.Failure(ValidationMessages.DatabaseBusy);
         }
-<<<<<<< HEAD
-=======
-        return OperationResult<Customer?>.Success(customerRepository.FindByIdentityOrPhone(searchText));
->>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
-=======
->>>>>>> main
     }
+
+    // return the customer if we have a customer with the same id in the table
 
     public OperationResult<IReadOnlyList<Animal>> GetCustomerAnimals(Employee? currentUser, int customerId)
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        // Defense in depth: linked animal viewing is part of customer management.
->>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
-=======
->>>>>>> main
+        // check the permission of the user to manage customers, only secretaries can manage customers
+        // this is for a specific use case where we want to show the animals of a customer 
         if (!CanManageCustomers(currentUser))
         {
             return OperationResult<IReadOnlyList<Animal>>.Failure(ValidationMessages.CustomerManagementSecretaryOnly);
@@ -163,21 +124,14 @@ public class CustomerService(
         return OperationResult<IReadOnlyList<Animal>>.Success(animalRepository.FindByOwnerCustomerId(customerId));
     }
 
+    // private function to keep just the secretary can manage customers, this is for code readability 
     private static bool CanManageCustomers(Employee? currentUser) => currentUser?.Role == StaffRole.Secretary;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> main
 
+    // private function to normalize the search text by trimming it and removing non-digit characters
     private static string NormalizeSearchText(string searchText)
     {
         string trimmed = searchText.Trim();
         string digitsOnly = new(trimmed.Where(char.IsDigit).ToArray());
         return digitsOnly.Length > 0 ? digitsOnly : trimmed;
     }
-<<<<<<< HEAD
-=======
->>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
-=======
->>>>>>> main
 }

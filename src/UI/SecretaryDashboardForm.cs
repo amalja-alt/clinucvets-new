@@ -3,9 +3,6 @@ using ClinicVets.Services;
 
 namespace ClinicVets.UI;
 
-/// <summary>
-/// Secretary dashboard focused on the required customer, animal, and visits workflow.
-/// </summary>
 public class SecretaryDashboardForm : Form
 {
     private readonly ClinicAppServices _services;

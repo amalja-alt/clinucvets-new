@@ -3,9 +3,6 @@ using ClinicVets.Services;
 
 namespace ClinicVets.UI;
 
-/// <summary>
-/// Veterinarian dashboard focused on medical workflow and patient treatment.
-/// </summary>
 public class VeterinarianDashboardForm : Form
 {
     private readonly ClinicAppServices _services;

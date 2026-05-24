@@ -2,9 +2,7 @@ using ClinicVets.Services;
 
 namespace ClinicVets.Validators;
 
-/// <summary>
 /// Validates customer management input.
-/// </summary>
 public class CustomerValidator
 {
     public OperationResult<bool> ValidateCustomer(string fullName, string identityNumber, string phone, string email)
