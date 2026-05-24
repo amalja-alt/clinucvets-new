@@ -15,14 +15,14 @@ public class AnimalBoundaryTests
 
         Assert.Equal(expected, result);
     }
-}
-[Theory]
-[InlineData(1999, false)]
-[InlineData(2000, true)]
-[InlineData(2025, true)]
-public void BirthYearBoundaryTest(int year, bool expected)
-{
-    bool result = year >= 2000 && year <= DateTime.Now.Year;
+    [Theory]
+    [InlineData(1999, false)]
+    [InlineData(2000, true)]
+    [InlineData(2025, true)]
+    public void BirthYearBoundaryTest(int year, bool expected)
+    {
+        bool result = year >= 2000 && year <= DateTime.Now.Year;
 
-    Assert.Equal(expected, result);
+        Assert.Equal(expected, result);
+    }
 }

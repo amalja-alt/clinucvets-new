@@ -19,11 +19,11 @@ public class AnimalFunctionalTests
 
         Assert.True(result);
     }
-}
-[Fact]
-public void AddAnimal_WithInvalidWeight_ShouldFail()
-{
-    bool result = false;
+    [Fact]
+    public void AddAnimal_WithInvalidWeight_ShouldFail()
+    {
+        bool result = false;
 
-    Assert.False(result);
+        Assert.False(result);
+    }
 }
