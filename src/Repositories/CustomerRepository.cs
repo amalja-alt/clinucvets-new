@@ -4,10 +4,6 @@ using Microsoft.Data.Sqlite;
 
 namespace ClinicVets.Repositories;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> main
 
 // alaa 
 // this class between the ui and the data access layer 
@@ -15,11 +11,6 @@ namespace ClinicVets.Repositories;
 // implimintation of the ICustomerRepository interface using SQLite as the data store
 
 
-<<<<<<< HEAD
-=======
->>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
-=======
->>>>>>> main
 public class CustomerRepository(string connectionString) : ICustomerRepository
 {
     // return true if we have a customer with the same identity number in the table 

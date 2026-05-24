@@ -1,14 +1,6 @@
 namespace ClinicVets.Models;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // alaa - id is the id of the customer( from thr system ) 
-=======
-// alaa - the sercatery can add a customer to the system
->>>>>>> 13bfe672cf043b4c83b8f39f62fc93493951aca9
-=======
-// alaa - id is the id of the customer( from thr system ) 
->>>>>>> main
 public class Customer
 {
     public int Id { get; init; }
