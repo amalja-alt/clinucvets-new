@@ -7,7 +7,6 @@ public class SecretaryDashboardForm : Form
 {
     private readonly ClinicAppServices _services;
     private readonly string _username;
-    private readonly TextBox _searchBox = new();
     private readonly Label _appointmentsValueLabel = new();
     private readonly Label _customersValueLabel = new();
     private readonly Label _animalsValueLabel = new();
@@ -55,7 +54,7 @@ public class SecretaryDashboardForm : Form
         Panel sidebar = new()
         {
             Dock = DockStyle.Fill,
-            BackColor = Color.FromArgb(70,245, 248, 251),
+            BackColor = Color.FromArgb(70, 245, 248, 251),
             Padding = new Padding(18, 20, 18, 18)
         };
 
@@ -89,7 +88,7 @@ public class SecretaryDashboardForm : Form
         layout.Controls.Add(nav, 0, 1);
 
         nav.Controls.Add(CreateNavButton("Dashboard", true, () => ShowHomeView()));
-        nav.Controls.Add(CreateNavButton("Appointments / Visits", false, () => OpenEmbeddedForm("Appointments / Visits", () => new VisitsOverviewForm(_services))));
+        nav.Controls.Add(CreateNavButton("Appointments", false, () => OpenEmbeddedForm("Appointments", () => new VisitsOverviewForm(_services))));
         nav.Controls.Add(CreateNavButton("Customers", false, () => OpenEmbeddedForm("Customers", () => new CustomerForm(_services))));
         nav.Controls.Add(CreateNavButton("Pets", false, () => OpenEmbeddedForm("Pets", () => new AnimalForm(_services))));
 
@@ -97,10 +96,11 @@ public class SecretaryDashboardForm : Form
         {
             Dock = DockStyle.Fill,
             ColumnCount = 1,
-            RowCount = 2
+            RowCount = 2,
+            Padding = new Padding(0, 8, 0, 0)
         };
-        footer.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-        footer.RowStyles.Add(new RowStyle(SizeType.Absolute, 42));
+        footer.RowStyles.Add(new RowStyle(SizeType.Absolute, 54));
+        footer.RowStyles.Add(new RowStyle(SizeType.Absolute, 44));
         layout.Controls.Add(footer, 0, 2);
 
         footer.Controls.Add(new Label
@@ -109,11 +109,21 @@ public class SecretaryDashboardForm : Form
             Dock = DockStyle.Fill,
             Font = new Font("Segoe UI", 10F, FontStyle.Bold),
             ForeColor = UiTheme.Muted,
-            TextAlign = ContentAlignment.BottomLeft
+            TextAlign = ContentAlignment.MiddleCenter
         }, 0, 0);
 
-        Button logout = UiTheme.CreateSecondaryButton("Logout", 0, 0, 160, 36);
-        logout.Dock = DockStyle.Fill;
+        Button logout = new()
+        {
+            Text = "Logout",
+            Dock = DockStyle.Fill,
+            Margin = new Padding(18, 4, 18, 0),
+            FlatStyle = FlatStyle.Flat,
+            Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+            ForeColor = Color.White,
+            BackColor = Color.FromArgb(210, 66, 66),
+            Cursor = Cursors.Hand
+        };
+        logout.FlatAppearance.BorderSize = 0;
         logout.Click += (_, _) => Logout();
         footer.Controls.Add(logout, 0, 1);
 
@@ -125,13 +135,13 @@ public class SecretaryDashboardForm : Form
         Button button = new()
         {
             Text = text,
-            Width = 188,
-            Height = 42,
+            Width = 232,
+            Height = 44,
             FlatStyle = FlatStyle.Flat,
             Font = new Font("Segoe UI", 10F, FontStyle.Bold),
             TextAlign = ContentAlignment.MiddleLeft,
-            Padding = new Padding(14, 0, 0, 0),
-            Margin = new Padding(0, 0, 0, 10),
+            Padding = new Padding(18, 0, 0, 0),
+            Margin = new Padding(0, 0, 0, 8),
             BackColor = active ? Color.FromArgb(230, 245, 249) : Color.White,
             ForeColor = active ? Color.FromArgb(20, 84, 132) : UiTheme.Text,
             Cursor = Cursors.Hand
@@ -150,7 +160,7 @@ public class SecretaryDashboardForm : Form
             Dock = DockStyle.Fill,
             ColumnCount = 1,
             RowCount = 2,
-            BackColor = Color.FromArgb(70,245, 248, 251)
+            BackColor = Color.FromArgb(70, 245, 248, 251)
         };
         main.RowStyles.Add(new RowStyle(SizeType.Absolute, 74));
         main.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
@@ -175,13 +185,11 @@ public class SecretaryDashboardForm : Form
         TableLayoutPanel layout = new()
         {
             Dock = DockStyle.Fill,
-            ColumnCount = 3,
+            ColumnCount = 1,
             RowCount = 1,
- 
+
         };
         layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-        layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 360));
-        layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 112));
         topBar.Controls.Add(layout);
 
         layout.Controls.Add(new Label
@@ -192,19 +200,6 @@ public class SecretaryDashboardForm : Form
             ForeColor = UiTheme.Text,
             TextAlign = ContentAlignment.MiddleLeft
         }, 0, 0);
-
-        _searchBox.Dock = DockStyle.Fill;
-        _searchBox.Font = new Font("Segoe UI", 10.5F);
-        _searchBox.PlaceholderText = "Search today's pet or owner";
-        _searchBox.Margin = new Padding(0, 4, 14, 4);
-        _searchBox.TextChanged += (_, _) => LoadTodayAppointments();
-        layout.Controls.Add(_searchBox, 1, 0);
-
-        Button logout = UiTheme.CreatePrimaryButton("Logout", 0, 0, 96, 38);
-        logout.Dock = DockStyle.Fill;
-        logout.Margin = new Padding(0, 4, 0, 4);
-        logout.Click += (_, _) => Logout();
-        layout.Controls.Add(logout, 2, 0);
 
         return topBar;
     }
@@ -234,7 +229,7 @@ public class SecretaryDashboardForm : Form
             ColumnCount = 1,
             RowCount = 4
             ,
-          
+
 
         };
         content.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
@@ -253,35 +248,23 @@ public class SecretaryDashboardForm : Form
         {
             Dock = DockStyle.Top,
             Height = 116,
-            BackColor = Color.FromArgb(70,20, 150, 170),
+            BackColor = Color.FromArgb(70, 20, 150, 170),
             GradientEndColor = Color.FromArgb(50, 126, 210),
             BorderSize = 0,
             CornerRadius = 16,
             Margin = new Padding(0, 0, 0, 18),
-            Padding = new Padding(26, 18, 26, 18)
+            Padding = new Padding(26, 0, 26, 0)
         };
 
         card.Controls.Add(new Label
         {
             Text = $"Welcome back, {_username}",
-            Dock = DockStyle.Top,
-            Height = 48,
+            Dock = DockStyle.Fill,
             Font = new Font("Segoe UI", 24F, FontStyle.Bold),
             ForeColor = Color.White,
-            AutoEllipsis = true
+            AutoEllipsis = true,
+            TextAlign = ContentAlignment.MiddleLeft
         });
-        card.Controls.Add(new Label
-        {
-            Text = string.IsNullOrWhiteSpace(welcomeMessage)
-                ? "Customer, pet, and visit information loaded from SQLite"
-                : welcomeMessage,
-            Dock = DockStyle.Bottom,
-            Height = 32,
-            Font = new Font("Segoe UI", 11F),
-            ForeColor = Color.FromArgb(225, 245, 250),
-            AutoEllipsis = true
-        });
-
         return card;
     }
 
@@ -380,7 +363,7 @@ public class SecretaryDashboardForm : Form
 
         actions.Controls.Add(CreateActionButton("New Customer", Color.FromArgb(20, 150, 170), () => OpenEmbeddedForm("Customers", () => new CustomerForm(_services))), 0, 0);
         actions.Controls.Add(CreateActionButton("New Pet", Color.FromArgb(63, 176, 112), () => OpenEmbeddedForm("Pets", () => new AnimalForm(_services))), 1, 0);
-        actions.Controls.Add(CreateActionButton("View Visits", Color.FromArgb(50, 126, 210), () => OpenEmbeddedForm("Appointments / Visits", () => new VisitsOverviewForm(_services))), 2, 0);
+        actions.Controls.Add(CreateActionButton("View Visits", Color.FromArgb(50, 126, 210), () => OpenEmbeddedForm("Appointments", () => new VisitsOverviewForm(_services))), 2, 0);
 
         return panel;
     }
@@ -484,15 +467,7 @@ public class SecretaryDashboardForm : Form
             return;
         }
 
-        string query = _searchBox.Text.Trim();
         IEnumerable<DashboardVisitSummary> visits = _services.LookupService.GetVisitsForDate(DateOnly.FromDateTime(DateTime.Today));
-
-        if (!string.IsNullOrWhiteSpace(query))
-        {
-            visits = visits.Where(visit =>
-                visit.PetName.Contains(query, StringComparison.OrdinalIgnoreCase) ||
-                visit.OwnerName.Contains(query, StringComparison.OrdinalIgnoreCase));
-        }
 
         _appointmentsGrid.DataSource = visits.Select(visit => new
         {
