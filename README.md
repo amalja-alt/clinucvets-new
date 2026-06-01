@@ -1,96 +1,150 @@
 # ClinicVets
 
-ClinicVets is a C# WinForms veterinary clinic management system developed for a Software Testing course project.
+ClinicVets is a Windows Forms veterinary clinic management system written in C# for a Software Testing course project.
 
-The implemented system uses:
+The project includes the application implementation, SQLite persistence, and automated xUnit tests.
+
+## Technology
 
 - C# WinForms
 - .NET `net10.0-windows`
-- SQLite with `Microsoft.Data.Sqlite`
-- xUnit automated tests
+- SQLite using `Microsoft.Data.Sqlite`
+- xUnit tests
+- Windows target runtime: `win-x64`
 
-## My Implementation Scope
+## Project Structure
 
-This assignment focuses on authentication, authorization, Secretary workflows, customer management, SQLite persistence, and automated testing.
+```text
+ClinicVets.csproj
+src/
+  Data/          Database settings and SQLite initialization.
+  Models/        Domain models: employees, customers, animals, medicines, visits, roles.
+  Repositories/  SQLite data access classes and repository interfaces.
+  Services/      Business logic, authentication, authorization, and workflows.
+  Validators/    Input validation rules.
+  UI/            WinForms screens.
+  Program.cs     Application startup.
 
-The system supports two roles:
+tests/
+  ClinicVets.Tests/  Automated xUnit tests.
+```
 
-- `Secretary`
-- `Veterinarian`
+## Main Implemented Features
 
-The main implemented flow for this assignment is the `Secretary` flow.
+- Employee registration
+- Employee login and logout
+- Role-based access for `Secretary` and `Veterinarian`
+- Secretary customer management
+- Animal management
+- Animal category management
+- Medicine management
+- Visit management
+- SQLite database creation and persistence
+- Automated tests for validation, services, repositories, authorization, and assignment flows
 
-## Implemented User Stories
+## Before Running
 
-### Employee Registration
+Use Windows with the .NET SDK installed.
 
-New employees can register with:
+The project targets:
 
-- username
-- password
-- employee number
-- email
-- Israeli identity number
-- role selection: `Secretary` or `Veterinarian`
+```text
+net10.0-windows
+```
 
-Passwords are saved in the SQLite database as plain strings for this course implementation.
+All commands below should be run from the project root folder:
 
-Relevant files:
+```text
+clinucvets-new-main
+```
 
-- `src/UI/RegisterEmployeeForm.cs`
-- `src/Services/EmployeeService.cs`
-- `src/Validators/EmployeeValidator.cs`
-- `src/Repositories/EmployeeRepository.cs`
+## Run the Application From Source
 
-### Employee Login and Logout
+Use this command:
 
-Employees can login with username and password. After login, the application opens the correct dashboard according to the employee role.
+```powershell
+dotnet run --project ClinicVets.csproj
+```
 
-Logout clears the current logged-in user session.
+This starts the WinForms application and opens the login screen.
 
-Relevant files:
+On a new database, there are no employees yet. First register an employee from the application, then login with that employee.
 
-- `src/UI/LoginForm.cs`
-- `src/Services/AuthService.cs`
-- `src/Services/AuthenticationResult.cs`
+## Build the Project
 
-### Role-Based Authorization
+Use this command:
 
-Customer management is restricted to `Secretary` users.
+```powershell
+dotnet build ClinicVets.csproj -c Release
+```
 
-`Veterinarian` users cannot register customers, search customers, or view customer animals through the customer management flow.
+The normal build output is created here:
 
-Relevant files:
+```text
+bin\Release\net10.0-windows\
+```
 
-- `src/Services/CustomerService.cs`
-- `src/Models/StaffRole.cs`
-- `src/Services/ValidationMessages.cs`
+The normal build EXE is:
 
-### Secretary Customer Management
+```text
+bin\Release\net10.0-windows\ClinicVets.exe
+```
 
-Secretary users can:
+## Run Automated Tests
 
-- register customers
-- search customers by Israeli ID or phone number
-- view animals linked to a selected customer
+Use this command:
 
-Relevant files:
+```powershell
+dotnet test tests\ClinicVets.Tests\ClinicVets.Tests.csproj -c Release
+```
 
-- `src/UI/CustomerForm.cs`
-- `src/Services/CustomerService.cs`
-- `src/Validators/CustomerValidator.cs`
-- `src/Repositories/CustomerRepository.cs`
-- `src/Repositories/AnimalRepository.cs`
+Verified result:
 
-## SQLite Persistence
+```text
+Passed: 182
+Failed: 0
+Skipped: 0
+Total: 182
+```
 
-SQLite is initialized when the application starts.
+## Create a Fresh Runnable EXE
 
-Relevant files:
+If the checker wants to create the EXE again from clean output folders, run:
 
-- `src/Data/DatabaseSettings.cs`
-- `src/Data/ClinicDatabaseInitializer.cs`
-- `src/Program.cs`
+```powershell
+Remove-Item -Recurse -Force bin, obj
+dotnet publish ClinicVets.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true
+```
+
+The published EXE will be created here:
+
+```text
+bin\Release\net10.0-windows\win-x64\publish\ClinicVets.exe
+```
+
+This is the recommended EXE file to run or submit.
+
+## Run the Published EXE
+
+Open this file:
+
+```text
+bin\Release\net10.0-windows\win-x64\publish\ClinicVets.exe
+```
+
+You can run it by double-clicking the file in Windows Explorer.
+
+You can also run it from PowerShell:
+
+```powershell
+.\bin\Release\net10.0-windows\win-x64\publish\ClinicVets.exe
+```
+
+Do not run files from the `obj` folder. The `obj` folder contains intermediate .NET build files, not the final application for checking or submission.
+
+## Database Information
+
+The application uses SQLite.
 
 The database file name is:
 
@@ -98,94 +152,92 @@ The database file name is:
 clinicvets.db
 ```
 
-The database is created in the application output folder because the connection string uses `AppContext.BaseDirectory`.
+The database location depends on where the application is running from. The code uses `AppContext.BaseDirectory`, so the database is created beside the running application output.
+
+When running with `dotnet run`, the database is created in the build output folder.
 
 When running the published EXE, the database is created beside:
 
 ```text
-ClinicVets.exe
+bin\Release\net10.0-windows\win-x64\publish\ClinicVets.exe
 ```
 
-If an existing demo database is needed, copy `clinicvets.db` into the same folder as the EXE.
-
-## Project Structure
+So the published database path is:
 
 ```text
-src/
-  Data/          SQLite schema creation and seed data.
-  Models/        Domain models such as Employee, Customer, Animal, and roles.
-  Repositories/  SQLite repository implementations and repository interfaces.
-  Services/      Business logic, authentication, authorization, and workflows.
-  Validators/    Validation rules for employee and customer input.
-  UI/            WinForms screens.
-  Program.cs     Application startup and dependency wiring.
-
-tests/
-  ClinicVets.Tests/  xUnit automated tests.
+bin\Release\net10.0-windows\win-x64\publish\clinicvets.db
 ```
 
-## Run the Project
+If the database file does not exist, the application creates it automatically on startup.
+
+Important: each run output folder has its own `clinicvets.db`. If an employee is registered while running one output, then the checker opens a different EXE/output folder, that employee will not exist in the other database.
+
+Common examples:
+
+```text
+bin\Debug\net10.0-windows\clinicvets.db
+bin\Release\net10.0-windows\clinicvets.db
+bin\Release\net10.0-windows\win-x64\clinicvets.db
+bin\Release\net10.0-windows\win-x64\publish\clinicvets.db
+```
+
+If login says `Username or password is incorrect` after registering an employee, make sure you are running the same output folder where the employee was registered, or copy the correct `clinicvets.db` beside the EXE you want to run.
+
+The initializer creates these tables:
+
+- `Roles`
+- `Employees`
+- `Customers`
+- `AnimalCategories`
+- `Animals`
+- `Medicines`
+- `Visits`
+- `VisitMedicines`
+
+The initializer also seeds:
+
+- roles: `Veterinarian`, `Secretary`
+- animal categories: `Dog`, `Cat`, `Reptile`, `Bird`
+
+Employee users are not seeded automatically. Register an employee in the application before logging in on a fresh database.
+
+## Important Files for Checking
+
+- `src/Program.cs` starts the application and wires services, repositories, validators, and the database initializer.
+- `src/Data/DatabaseSettings.cs` defines the SQLite database name and location.
+- `src/Data/ClinicDatabaseInitializer.cs` creates the database tables and seed data.
+- `src/UI/LoginForm.cs` contains the login screen.
+- `src/UI/RegisterEmployeeForm.cs` contains employee registration.
+- `src/UI/SecretaryDashboardForm.cs` contains the secretary dashboard.
+- `src/UI/VeterinarianDashboardForm.cs` contains the veterinarian dashboard.
+- `tests/ClinicVets.Tests/` contains the automated test suite.
+
+## Quick Checker Commands
+
+From the project root:
 
 ```powershell
+dotnet build ClinicVets.csproj -c Release
+dotnet test tests\ClinicVets.Tests\ClinicVets.Tests.csproj -c Release
 dotnet run --project ClinicVets.csproj
 ```
 
-## Run Tests
+To recreate the published EXE:
 
 ```powershell
-dotnet test tests\ClinicVets.Tests\ClinicVets.Tests.csproj
+Remove-Item -Recurse -Force bin, obj
+dotnet publish ClinicVets.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true
 ```
 
-Current verified result:
+Published EXE location:
 
 ```text
-Passed: 182
-Failed: 0
-Skipped: 0
+bin\Release\net10.0-windows\win-x64\publish\ClinicVets.exe
 ```
-
-## Create Runnable Windows EXE
-
-Use this command from the project root:
-
-```powershell
-dotnet publish ClinicVets.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishDir=C:\clinucvets-new\publish\win-x64\
-```
-
-The EXE output folder is:
-
-```text
-C:\clinucvets-new\publish\win-x64\
-```
-
-Runnable file:
-
-```text
-C:\clinucvets-new\publish\win-x64\ClinicVets.exe
-```
-
-The `.pdb` file in the publish folder is a debug symbols file. The runnable application is the `.exe`.
-
-## PDF Documentation
-
-The implementation-based PDF content is prepared in:
-
-```text
-PDF_PART_SECRETARY_IMPLEMENTATION.md
-```
-
-It explains the real implemented flow, including:
-
-- authentication
-- authorization
-- Secretary customer management
-- validation logic
-- SQLite interaction
-- related tests
-- EXE publish process
 
 ## Notes
 
-Do not include `bin/`, `obj/`, or `.vs/` in Git.
-
-The repository also contains modules for animals, visits, medicine, and dashboards. They exist in the codebase, but the main assignment scope documented here is the Secretary/customer/authentication flow.
+- The `.pdb` file is only a debug symbols file. The runnable application is `ClinicVets.exe`.
+- `bin` and `obj` are generated build folders.
+- `clinicvets.db` is generated automatically when the application starts.
+- No manual database setup is required.
